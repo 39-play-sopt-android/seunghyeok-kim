@@ -1,12 +1,12 @@
 import org.sopt.play.setNamespace
 
 plugins {
-    alias(libs.plugins.sopt.android.feature)
+    alias(libs.plugins.sopt.android.library)
+    alias(libs.plugins.sopt.android.compose)
 }
 
-setNamespace("feature.auth")
+setNamespace("core.ui")
 
 dependencies {
     implementation(project(":core:designsystem"))
-    implementation(project(":core:ui"))
 }
