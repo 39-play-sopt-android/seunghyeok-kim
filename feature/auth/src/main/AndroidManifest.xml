@@ -5,7 +5,13 @@
             android:name="org.sopt.play.feature.auth.LoginActivity"
             android:exported="false"
             android:label="@string/title_activity_login"
-            android:theme="@style/Theme.Playsopt"
+            android:theme="@style/Theme.PlaySopt"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="org.sopt.play.feature.auth.SignupActivity"
+            android:exported="false"
+            android:label="@string/title_activity_signup"
+            android:theme="@style/Theme.PlaySopt"
             android:windowSoftInputMode="adjustResize" />
     </application>
 </manifest>

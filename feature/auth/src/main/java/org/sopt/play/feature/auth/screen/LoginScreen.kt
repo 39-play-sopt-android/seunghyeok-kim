@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -27,6 +29,7 @@ fun LoginScreen(
     onLoginClick: () -> Unit = {}
 ){
     val focusManager = LocalFocusManager.current
+    val scrollState = rememberScrollState()
 
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -48,7 +51,8 @@ fun LoginScreen(
     Column(
         modifier = Modifier
             .playSoptDefault(PlaySoptTheme.color.white)
-            .padding(16.dp, 60.dp, 16.dp, 0.dp),
+            .verticalScroll(scrollState)
+            .padding(16.dp, 60.dp, 16.dp, 40.dp),
         verticalArrangement = Arrangement.spacedBy(40.dp)
     ) {
         Text("이메일로 로그인하기", style = PlaySoptTheme.typography.b28)
@@ -70,7 +74,7 @@ fun LoginScreen(
                 hint = "6자 이상의 비밀번호",
                 onValueChange = { password = it },
                 status = passwordStatus,
-                errorMessage = "6자 이상의 비밀번호를 입력해주세요.",
+                errorMessage = "비밀번호는 6자 이상 입력해주세요.",
                 type = "password",
                 onDone = {
                     if (loginStatus) onLoginClick()
