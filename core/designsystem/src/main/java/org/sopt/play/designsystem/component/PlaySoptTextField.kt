@@ -108,6 +108,7 @@ fun PlaySoptTextField(
                     }
                 },
                 onDone = {
+                    focusManager.clearFocus()
                     keyboardController?.hide()
                     onDone?.invoke()
                 }

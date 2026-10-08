@@ -102,10 +102,7 @@ fun SignupScreen(
                 onValueChange = { passwordCheck = it },
                 status = passwordCheckStatus,
                 errorMessage = "비밀번호가 일치하지 않습니다.",
-                type = "password",
-                onDone = {
-                    if (signUpStatus) onSignUpClick()
-                }
+                type = "password"
             )
         }
         PlaySoptButton(

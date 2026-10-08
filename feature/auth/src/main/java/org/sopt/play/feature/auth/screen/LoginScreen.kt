@@ -75,10 +75,7 @@ fun LoginScreen(
                 onValueChange = { password = it },
                 status = passwordStatus,
                 errorMessage = "비밀번호는 6자 이상 입력해주세요.",
-                type = "password",
-                onDone = {
-                    if (loginStatus) onLoginClick()
-                }
+                type = "password"
             )
         }
         Column(
