@@ -7,13 +7,11 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
@@ -32,18 +30,21 @@ fun LoginScreen(
     val focusManager = LocalFocusManager.current
     val scrollState = rememberScrollState()
 
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
+    val emailState = rememberTextFieldState()
+    val passwordState = rememberTextFieldState()
+
+    val emailText = emailState.text.toString()
+    val passwordText = passwordState.text.toString()
 
     val emailStatus = when {
-        email.isEmpty() -> 1
-        !email.contains("@") -> 4
+        emailText.isEmpty() -> 1
+        !emailText.contains("@") -> 4
         else -> 2
     }
 
     val passwordStatus = when {
-        password.isEmpty() -> 1
-        password.length < 6 -> 4
+        passwordText.isEmpty() -> 1
+        passwordText.length < 6 -> 4
         else -> 2
     }
 
@@ -62,8 +63,7 @@ fun LoginScreen(
         ){
             PlaySoptTextField(
                 title = "이메일 주소",
-                value = email,
-                onValueChange = { email = it },
+                state = emailState,
                 hint = "abc@email.com",
                 status = emailStatus,
                 errorMessage = "올바른 이메일을 입력해주세요.",
@@ -71,9 +71,8 @@ fun LoginScreen(
             )
             PlaySoptTextField(
                 title = "비밀번호",
-                value = password,
+                state = passwordState,
                 hint = "6자 이상의 비밀번호",
-                onValueChange = { password = it },
                 status = passwordStatus,
                 errorMessage = "비밀번호는 6자 이상 입력해주세요.",
                 type = "password"

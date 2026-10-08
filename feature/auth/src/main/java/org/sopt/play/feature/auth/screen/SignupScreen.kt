@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -27,31 +28,31 @@ fun SignupScreen(
     val focusManager = LocalFocusManager.current
     val scrollState = rememberScrollState()
 
-    var name by remember { mutableStateOf("") }
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-    var passwordCheck by remember { mutableStateOf("") }
+    val nameState = rememberTextFieldState()
+    val emailState = rememberTextFieldState()
+    val passwordState = rememberTextFieldState()
+    val passwordCheckState = rememberTextFieldState()
 
     val nameStatus = when {
-        name.isEmpty() -> 1
+        nameState.text.isEmpty() -> 1
         else -> 2
     }
 
     val emailStatus = when {
-        email.isEmpty() -> 1
-        !email.contains("@") -> 4
+        emailState.text.isEmpty() -> 1
+        !emailState.text.contains("@") -> 4
         else -> 2
     }
 
     val passwordStatus = when {
-        password.isEmpty() -> 1
-        password.length < 6 -> 4
+        passwordState.text.isEmpty() -> 1
+        passwordState.text.length < 6 -> 4
         else -> 2
     }
 
     val passwordCheckStatus = when {
-        passwordCheck.isEmpty() -> 1
-        passwordCheck != password -> 4
+        passwordCheckState.text.isEmpty() -> 1
+        passwordCheckState.text != passwordState.text -> 4
         else -> 2
     }
 
@@ -70,16 +71,14 @@ fun SignupScreen(
         ){
             PlaySoptTextField(
                 title = "이름",
-                value = name,
-                onValueChange = { name = it },
+                state = nameState,
                 hint = "홍길동",
                 status = nameStatus,
                 onNext = { focusManager.moveFocus(FocusDirection.Down) }
             )
             PlaySoptTextField(
                 title = "이메일 주소",
-                value = email,
-                onValueChange = { email = it },
+                state = emailState,
                 hint = "abc@email.com",
                 status = emailStatus,
                 errorMessage = "올바른 이메일을 입력해주세요.",
@@ -87,9 +86,8 @@ fun SignupScreen(
             )
             PlaySoptTextField(
                 title = "비밀번호",
-                value = password,
+                state = passwordState,
                 hint = "6자 이상의 비밀번호",
-                onValueChange = { password = it },
                 status = passwordStatus,
                 errorMessage = "6자 이상의 비밀번호를 입력해주세요.",
                 type = "password",
@@ -97,9 +95,8 @@ fun SignupScreen(
             )
             PlaySoptTextField(
                 title = "비밀번호 확인",
-                value = passwordCheck,
+                state = passwordCheckState,
                 hint = "6자 이상의 비밀번호",
-                onValueChange = { passwordCheck = it },
                 status = passwordCheckStatus,
                 errorMessage = "비밀번호가 일치하지 않습니다.",
                 type = "password"

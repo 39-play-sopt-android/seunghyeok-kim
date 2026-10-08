@@ -12,8 +12,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.text.input.OutputTransformation
+import androidx.compose.foundation.text.input.TextFieldLineLimits
+import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -34,8 +36,7 @@ import org.sopt.play.designsystem.theme.PlaySoptTheme
 fun PlaySoptTextField(
     modifier: Modifier = Modifier,
     title: String? = null,
-    value: String,
-    onValueChange: (String) -> Unit,
+    state: TextFieldState,
     hint: String? = null,
     status: Int? = null, // 1 = default, 2 = default2, 3 = focused, 4 = error
     errorMessage: String? = null,
@@ -45,7 +46,7 @@ fun PlaySoptTextField(
     type: String? = null,
     maxLine: Int = 1
 ) {
-    val isNotEmpty = value.isNotEmpty()
+    val isNotEmpty = state.text.isNotEmpty()
     val keyboardController = LocalSoftwareKeyboardController.current
     val focusManager = LocalFocusManager.current
 
@@ -89,32 +90,29 @@ fun PlaySoptTextField(
 
         BasicTextField(
             modifier = Modifier.fillMaxWidth(),
-            value = value,
-            onValueChange = onValueChange,
-            maxLines = maxLine,
-            singleLine = maxLine == 1,
+            state = state,
+            lineLimits = if (maxLine == 1) TextFieldLineLimits.SingleLine else TextFieldLineLimits.MultiLine(maxHeightInLines = maxLine),
             textStyle = PlaySoptTheme.typography.m18,
             interactionSource = interactionSource,
-            visualTransformation = if (type == "password") PasswordVisualTransformation() else VisualTransformation.None,
+            outputTransformation = if (type == "password") OutputTransformation { replace(0, length, "\u2022".repeat(length)) } else null,
             keyboardOptions = KeyboardOptions(
                 imeAction = effectiveImeAction
             ),
-            keyboardActions = KeyboardActions(
-                onNext = {
+            onKeyboardAction = {
+                if (effectiveImeAction == ImeAction.Next) {
                     if (onNext != null) {
                         onNext()
                     } else {
                         focusManager.moveFocus(FocusDirection.Down)
                     }
-                },
-                onDone = {
+                } else if (effectiveImeAction == ImeAction.Done) {
                     focusManager.clearFocus()
                     keyboardController?.hide()
                     onDone?.invoke()
                 }
-            ),
+            },
             cursorBrush = SolidColor(PlaySoptTheme.color.gray5),
-            decorationBox = { innerTextField ->
+            decorator = { innerTextField ->
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
