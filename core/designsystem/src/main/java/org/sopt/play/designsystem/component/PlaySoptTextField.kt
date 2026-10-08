@@ -1,5 +1,12 @@
 package org.sopt.play.designsystem.component
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -149,9 +156,33 @@ fun PlaySoptTextField(
                 }
             }
         )
-        if (currentStatus == 4) {
+        AnimatedVisibility(
+            visible = currentStatus == 4,
+            enter = fadeIn(
+                animationSpec = tween(
+                    durationMillis = 200,
+                    easing = FastOutSlowInEasing
+                )
+            ) + expandVertically(
+                animationSpec = tween(
+                    durationMillis = 200,
+                    easing = FastOutSlowInEasing
+                ),
+                expandFrom = Alignment.Top
+            ),
+            exit = fadeOut(
+                animationSpec = tween(
+                    durationMillis = 200
+                )
+            ) + shrinkVertically(
+                animationSpec = tween(
+                    durationMillis = 200
+                ),
+                shrinkTowards = Alignment.Top
+            )
+        ) {
             Text(
-                modifier = Modifier.padding(start = 8.dp),
+                modifier = Modifier.padding(start = 8.dp, top = 4.dp),
                 text = errorMessage ?: "오류가 있습니다",
                 style = PlaySoptTheme.typography.m14,
                 color = PlaySoptTheme.color.red
