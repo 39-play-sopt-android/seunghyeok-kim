@@ -1,6 +1,7 @@
 package org.sopt.play.feature.auth.screen
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -102,6 +103,8 @@ fun LoginScreen(
                     style = PlaySoptTheme.typography.m14,
                     color = PlaySoptTheme.color.gray6,
                     modifier = Modifier.clickable(
+                        interactionSource = remember { MutableInteractionSource() },
+                        indication = null,
                         onClick = {
                             navToSignUpClick()
                         }
