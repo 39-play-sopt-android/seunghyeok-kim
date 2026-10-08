@@ -25,20 +25,16 @@ import org.sopt.play.designsystem.component.PlaySoptButton
 import org.sopt.play.designsystem.component.PlaySoptTextField
 import org.sopt.play.designsystem.theme.PlaySoptTheme
 import org.sopt.play.feature.auth.screen.LoginScreen
+import org.sopt.play.feature.auth.screen.SignupScreen
 
-class LoginActivity : ComponentActivity() {
+class SignupActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             PlaySoptTheme {
-                LoginScreen(
-                    onLoginClick = {
+                SignupScreen (
 
-                    },
-                    navToSignUpClick = {
-
-                    }
                 )
             }
         }

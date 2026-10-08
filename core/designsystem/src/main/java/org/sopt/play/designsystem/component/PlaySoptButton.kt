@@ -2,6 +2,7 @@ package org.sopt.play.designsystem.component
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -17,7 +18,7 @@ import org.sopt.play.designsystem.theme.PlaySoptTheme
 
 @Composable
 fun PlaySoptButton(
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier.fillMaxWidth(),
     text: String,
     enabled: Boolean = true,
     textStyle: TextStyle = PlaySoptTheme.typography.sb14,
