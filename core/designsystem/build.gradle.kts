@@ -8,5 +8,5 @@ plugins {
 setNamespace("core.designsystem")
 
 dependencies {
-
+    implementation(project(":core:ui"))
 }

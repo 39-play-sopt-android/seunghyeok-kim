@@ -1,7 +1,5 @@
 package org.sopt.play.feature.auth.screen
 
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -11,12 +9,12 @@ import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
+import org.sopt.play.core.ui.ext.nullIndication
 import org.sopt.play.core.ui.ext.playSoptDefault
 import org.sopt.play.designsystem.component.PlaySoptButton
 import org.sopt.play.designsystem.component.PlaySoptTextField
@@ -101,13 +99,7 @@ fun LoginScreen(
                     "회원가입",
                     style = PlaySoptTheme.typography.m14,
                     color = PlaySoptTheme.color.gray6,
-                    modifier = Modifier.clickable(
-                        interactionSource = remember { MutableInteractionSource() },
-                        indication = null,
-                        onClick = {
-                            navToSignUpClick()
-                        }
-                    )
+                    modifier = Modifier.nullIndication(onClick = navToSignUpClick)
                 )
             }
         }

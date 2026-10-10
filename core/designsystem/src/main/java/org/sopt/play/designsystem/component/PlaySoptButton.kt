@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
+import org.sopt.play.core.ui.ext.nullIndication
 import org.sopt.play.designsystem.theme.PlaySoptTheme
 
 @Composable
@@ -37,13 +38,10 @@ fun PlaySoptButton(
                 color = backgroundColor,
                 shape = RoundedCornerShape(100.dp)
             )
-            .clickable(
-                interactionSource = remember { MutableInteractionSource() },
-                indication = null, // 리플 효과 완전 제거
-                enabled = enabled
-            ) {
-                onClick()
-            }
+            .nullIndication(
+                enabled = enabled,
+                onClick = onClick
+            )
             .padding(16.dp),
         contentAlignment = Alignment.Center
     ) {
