@@ -1,4 +1,7 @@
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
 pluginManagement {
+    includeBuild("build-logic")
     repositories {
         google {
             content {
@@ -22,5 +25,11 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Play Sopt"
+rootProject.name = "play-sopt"
 include(":app")
+
+include(":feature:auth")
+
+include(":core:designsystem")
+include(":core:navigation")
+include(":core:ui")
