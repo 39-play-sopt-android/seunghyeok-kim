@@ -8,9 +8,9 @@
             android:theme="@style/Theme.PlaySopt"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name="org.sopt.play.feature.auth.SignupActivity"
+            android:name="org.sopt.play.feature.auth.RegisterActivity"
             android:exported="false"
-            android:label="@string/title_activity_signup"
+            android:label="@string/title_activity_register"
             android:theme="@style/Theme.PlaySopt"
             android:windowSoftInputMode="adjustResize" />
     </application>

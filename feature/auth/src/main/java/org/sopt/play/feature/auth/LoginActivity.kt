@@ -24,7 +24,7 @@ class LoginActivity : ComponentActivity() {
                         startActivity(intent)
                     },
                     navToSignUpClick = {
-                        val intent = Intent(this@LoginActivity, SignupActivity::class.java)
+                        val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
                         startActivity(intent)
                     }
                 )
