@@ -16,12 +16,11 @@ class LoginActivity : ComponentActivity() {
             PlaySoptTheme {
                 LoginScreen(
                     onLoginClick = {
-                        val intent = Intent().apply {
-                            setClassName(this@LoginActivity, "org.sopt.play.MainActivity")
+                        val resultIntent = Intent().apply {
                             putExtra("is_logged_in", true)
-                            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                         }
-                        startActivity(intent)
+                        setResult(RESULT_OK, resultIntent)
+                        finish()
                     },
                     navToSignUpClick = {
                         val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
