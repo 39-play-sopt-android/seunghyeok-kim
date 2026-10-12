@@ -30,10 +30,10 @@ val playSoptTypography: PlaySoptTypography
     get() {
         val pretendard = Pretendard
         return PlaySoptTypography(
-            b28 = TextStyle(fontFamily = pretendard, fontSize = 28.sp, fontWeight = FontWeight.Bold, lineHeight = (28 * 1.2).sp, letterSpacing = (-0.01).em),
-            m18 = TextStyle(fontFamily = pretendard, fontSize = 18.sp, fontWeight = FontWeight.Medium, lineHeight = (18 * 1.2).sp, letterSpacing = (-0.01).em),
-            sb16 = TextStyle(fontFamily = pretendard, fontSize = 16.sp, fontWeight = FontWeight.SemiBold, lineHeight = (16 * 1.2).sp, letterSpacing = (-0.01).em),
-            m14 = TextStyle(fontFamily = pretendard, fontSize = 14.sp, fontWeight = FontWeight.Medium, lineHeight = (14 * 1.2).sp, letterSpacing = (-0.01).em),
-            sb14 = TextStyle(fontFamily = pretendard, fontSize = 14.sp, fontWeight = FontWeight.SemiBold, lineHeight = (14 * 1.2).sp, letterSpacing = (-0.01).em)
+            b28 = TextStyle(fontFamily = pretendard, fontSize = 28.sp, fontWeight = FontWeight.Bold, lineHeight = 1.2.em, letterSpacing = (-0.01).em),
+            m18 = TextStyle(fontFamily = pretendard, fontSize = 18.sp, fontWeight = FontWeight.Medium, lineHeight = 1.2.em, letterSpacing = (-0.01).em),
+            sb16 = TextStyle(fontFamily = pretendard, fontSize = 16.sp, fontWeight = FontWeight.SemiBold, lineHeight = 1.2.em, letterSpacing = (-0.01).em),
+            m14 = TextStyle(fontFamily = pretendard, fontSize = 14.sp, fontWeight = FontWeight.Medium, lineHeight = 1.2.em, letterSpacing = (-0.01).em),
+            sb14 = TextStyle(fontFamily = pretendard, fontSize = 14.sp, fontWeight = FontWeight.SemiBold, lineHeight = 1.2.em, letterSpacing = (-0.01).em)
         )
     }
