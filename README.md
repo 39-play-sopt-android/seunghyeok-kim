@@ -7,7 +7,7 @@
 ## ⚙️ 프로젝트 구조
 
 ```agsl
-spot/
+sopt/
 ├── app/                         ← 앱 진입점 (AAR)
 │
 ├── build-logic/ 
