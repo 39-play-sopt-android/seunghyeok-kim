@@ -1,0 +1,17 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application>
+        <activity
+            android:name="org.sopt.play.feature.auth.LoginActivity"
+            android:exported="false"
+            android:label="@string/title_activity_login"
+            android:theme="@style/Theme.PlaySopt"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="org.sopt.play.feature.auth.RegisterActivity"
+            android:exported="false"
+            android:label="@string/title_activity_register"
+            android:theme="@style/Theme.PlaySopt"
+            android:windowSoftInputMode="adjustResize" />
+    </application>
+</manifest>
