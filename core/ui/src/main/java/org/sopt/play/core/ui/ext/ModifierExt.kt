@@ -1,6 +1,8 @@
 package org.sopt.play.core.ui.ext
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.displayCutout
@@ -13,6 +15,7 @@ import androidx.compose.foundation.layout.tappableElement
 import androidx.compose.foundation.layout.union
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -46,7 +49,17 @@ fun Modifier.playSoptDefault(
         .fillMaxSize()
         .then(this)
         .customInsets(top = true, bottom = bottomPadding)
-        .run {
-            if (bottomPadding) this.padding(bottom = 24.dp) else this
-        }
+}
+
+
+@Composable
+fun Modifier.nullIndication(
+    enabled: Boolean = true,
+    onClick: () -> Unit
+): Modifier = this.clickable (
+    interactionSource = remember { MutableInteractionSource() },
+    indication = null,
+    enabled = enabled
+) {
+    onClick()
 }

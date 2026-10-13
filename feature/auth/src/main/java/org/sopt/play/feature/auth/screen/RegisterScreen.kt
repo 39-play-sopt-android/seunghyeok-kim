@@ -12,14 +12,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
+import org.sopt.play.core.ui.ext.isValidEmail
 import org.sopt.play.core.ui.ext.playSoptDefault
 import org.sopt.play.designsystem.component.PlaySoptButton
 import org.sopt.play.designsystem.component.PlaySoptTextField
+import org.sopt.play.designsystem.component.TextFieldStatus
 import org.sopt.play.designsystem.theme.PlaySoptTheme
 
 @Composable
 fun RegisterScreen(
-    onSignUpClick: () -> Unit = {}
+    onSignUpClick: () -> Unit
 ){
     val focusManager = LocalFocusManager.current
     val scrollState = rememberScrollState()
@@ -29,30 +31,33 @@ fun RegisterScreen(
     val passwordState = rememberTextFieldState()
     val passwordCheckState = rememberTextFieldState()
 
-    val nameStatus = when {
-        nameState.text.isEmpty() -> 1
-        else -> 2
+    val nameStatus: TextFieldStatus = when {
+        nameState.text.isEmpty() -> TextFieldStatus.Default
+        else -> TextFieldStatus.Valid
     }
 
-    val emailStatus = when {
-        emailState.text.isEmpty() -> 1
-        !emailState.text.contains("@") -> 4
-        else -> 2
+    val emailStatus: TextFieldStatus = when {
+        emailState.text.isEmpty() -> TextFieldStatus.Default
+        !emailState.text.toString().isValidEmail() -> TextFieldStatus.Error("올바른 이메일을 입력해주세요.")
+        else -> TextFieldStatus.Valid
     }
 
-    val passwordStatus = when {
-        passwordState.text.isEmpty() -> 1
-        passwordState.text.length < 6 -> 4
-        else -> 2
+    val passwordStatus: TextFieldStatus = when {
+        passwordState.text.isEmpty() -> TextFieldStatus.Default
+        passwordState.text.length < 6 -> TextFieldStatus.Error("6자 이상의 비밀번호를 입력해주세요.")
+        else -> TextFieldStatus.Valid
     }
 
-    val passwordCheckStatus = when {
-        passwordCheckState.text.isEmpty() -> 1
-        passwordCheckState.text != passwordState.text -> 4
-        else -> 2
+    val passwordCheckStatus: TextFieldStatus = when {
+        passwordCheckState.text.isEmpty() -> TextFieldStatus.Default
+        passwordCheckState.text.toString() != passwordState.text.toString() -> TextFieldStatus.Error("비밀번호가 일치하지 않습니다.")
+        else -> TextFieldStatus.Valid
     }
 
-    val signUpStatus = nameStatus == 2 && emailStatus == 2 && passwordStatus == 2 && passwordCheckStatus == 2
+    val isSignUpEnabled = nameStatus is TextFieldStatus.Valid &&
+            emailStatus is TextFieldStatus.Valid &&
+            passwordStatus is TextFieldStatus.Valid &&
+            passwordCheckStatus is TextFieldStatus.Valid
 
     Column(
         modifier = Modifier
@@ -103,7 +108,7 @@ fun RegisterScreen(
             onClick = {
                 onSignUpClick()
             },
-            enabled = signUpStatus
+            enabled = isSignUpEnabled
         )
     }
 }

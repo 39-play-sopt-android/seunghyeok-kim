@@ -1,5 +1,6 @@
 package org.sopt.play.designsystem.component
 
+import android.util.Patterns
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.tween
@@ -37,13 +38,20 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import org.sopt.play.designsystem.theme.PlaySoptTheme
 
+sealed class TextFieldStatus {
+    data object Default : TextFieldStatus()
+    data object Valid : TextFieldStatus()
+    data object Focused: TextFieldStatus()
+    data class Error(val errorMessage: String): TextFieldStatus()
+}
+
 @Composable
 fun PlaySoptTextField(
     modifier: Modifier = Modifier,
-    title: String? = null,
+    title: String,
     state: TextFieldState,
-    hint: String? = null,
-    status: Int? = null, // 1 = default, 2 = default2, 3 = focused, 4 = error
+    hint: String,
+    status: TextFieldStatus? = null,
     errorMessage: String? = null,
     onDone: (() -> Unit)? = null,
     onNext: (() -> Unit)? = null,
@@ -58,19 +66,18 @@ fun PlaySoptTextField(
     val interactionSource = remember { MutableInteractionSource() }
     val isFocused by interactionSource.collectIsFocusedAsState()
 
-    val currentStatus = when {
-        status == 4 -> 4
-        isFocused -> 3
+    val currentStatus: TextFieldStatus = when {
+        status is TextFieldStatus.Error -> status
+        isFocused -> TextFieldStatus.Focused
         status != null -> status
-        isNotEmpty -> 2
-        else -> 1
+        isNotEmpty -> TextFieldStatus.Valid
+        else -> TextFieldStatus.Default
     }
 
     val borderColor = when (currentStatus) {
-        1, 2 -> PlaySoptTheme.color.gray2
-        3 -> PlaySoptTheme.color.gray5
-        4 -> PlaySoptTheme.color.red
-        else -> PlaySoptTheme.color.gray2
+        is TextFieldStatus.Default, is TextFieldStatus.Valid -> PlaySoptTheme.color.gray2
+        is TextFieldStatus.Focused -> PlaySoptTheme.color.gray5
+        is TextFieldStatus.Error -> PlaySoptTheme.color.red
     }
 
     val effectiveImeAction = when {
@@ -88,7 +95,7 @@ fun PlaySoptTextField(
             Text(
                 modifier = Modifier.padding(start = 8.dp),
                 text = title,
-                style = PlaySoptTheme.typography.sb14,
+                style = PlaySoptTheme.typography.sb16,
                 color = PlaySoptTheme.color.gray6
             )
         }
@@ -155,7 +162,7 @@ fun PlaySoptTextField(
             }
         )
         AnimatedVisibility(
-            visible = currentStatus == 4,
+            visible = currentStatus is TextFieldStatus.Error,
             enter = fadeIn(
                 animationSpec = tween(
                     durationMillis = 200,

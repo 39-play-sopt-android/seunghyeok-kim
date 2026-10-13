@@ -14,16 +14,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
+import org.sopt.play.core.ui.ext.isValidEmail
 import org.sopt.play.core.ui.ext.nullIndication
 import org.sopt.play.core.ui.ext.playSoptDefault
 import org.sopt.play.designsystem.component.PlaySoptButton
 import org.sopt.play.designsystem.component.PlaySoptTextField
+import org.sopt.play.designsystem.component.TextFieldStatus
 import org.sopt.play.designsystem.theme.PlaySoptTheme
 
 @Composable
 fun LoginScreen(
-    navToSignUpClick: () -> Unit = {},
-    onLoginClick: () -> Unit = {}
+    navToSignUp: () -> Unit,
+    onLoginClick: () -> Unit
 ){
     val focusManager = LocalFocusManager.current
     val scrollState = rememberScrollState()
@@ -31,28 +33,30 @@ fun LoginScreen(
     val emailState = rememberTextFieldState()
     val passwordState = rememberTextFieldState()
 
-    val emailText = emailState.text.toString()
-    val passwordText = passwordState.text.toString()
-
-    val emailStatus = when {
-        emailText.isEmpty() -> 1
-        !emailText.contains("@") -> 4
-        else -> 2
+    val emailStatus: TextFieldStatus = when {
+        emailState.text.isEmpty() -> TextFieldStatus.Default
+        !emailState.text.toString().isValidEmail() -> TextFieldStatus.Error("올바른 이메일을 입력해주세요.")
+        else -> TextFieldStatus.Valid
     }
 
-    val passwordStatus = when {
-        passwordText.isEmpty() -> 1
-        passwordText.length < 6 -> 4
-        else -> 2
+
+    val passwordStatus: TextFieldStatus = when {
+        passwordState.text.isEmpty() -> TextFieldStatus.Default
+        passwordState.text.length < 6 -> TextFieldStatus.Error("6자 이상의 비밀번호를 입력해주세요.")
+        else -> TextFieldStatus.Valid
     }
 
-    val loginStatus = emailStatus == 2 && passwordStatus == 2
+
+
+    val isLoginEnabled = emailStatus is TextFieldStatus.Valid &&
+            passwordStatus is TextFieldStatus.Valid
 
     Column(
         modifier = Modifier
             .playSoptDefault(PlaySoptTheme.color.white)
             .verticalScroll(scrollState)
-            .padding(16.dp, 60.dp, 16.dp, 40.dp),
+            .padding(horizontal = 16.dp)
+            .padding(top = 60.dp, bottom = 40.dp),
         verticalArrangement = Arrangement.spacedBy(40.dp)
     ) {
         Text("이메일로 로그인하기", style = PlaySoptTheme.typography.b28)
@@ -85,7 +89,7 @@ fun LoginScreen(
                 onClick = {
                     onLoginClick()
                 },
-                enabled = loginStatus
+                enabled = isLoginEnabled
             )
             Row(
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
@@ -99,7 +103,7 @@ fun LoginScreen(
                     "회원가입",
                     style = PlaySoptTheme.typography.m14,
                     color = PlaySoptTheme.color.gray6,
-                    modifier = Modifier.nullIndication(onClick = navToSignUpClick)
+                    modifier = Modifier.nullIndication(onClick = navToSignUp)
                 )
             }
         }
