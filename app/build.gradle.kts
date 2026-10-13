@@ -14,8 +14,14 @@ android {
 }
 
 dependencies {
-    implementation(libs.androidx.activity.compose)
+
     implementation(project(":core:designsystem"))
     implementation(project(":core:navigation"))
+
     implementation(project(":feature:auth"))
+    implementation(project(":feature:home"))
+
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.navigation.runtime.ktx)
+    implementation(libs.navigation.compose)
 }

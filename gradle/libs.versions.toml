@@ -37,6 +37,9 @@ oss-plugin = "0.10.6"
 junit = "4.13.2"
 androidx-testExt = "1.2.1"
 androidx-espresso = "3.6.1"
+navigationRuntimeKtx = "2.10.2"
+navigationCompose = "2.10.2"
+material = "1.14.0"
 
 [libraries]
 # Gradle Plugins
@@ -113,6 +116,9 @@ androidx-testExt-junit = { module = "androidx.test.ext:junit", version.ref = "an
 androidx-espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "androidx-espresso" }
 androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+androidx-navigation-runtime-ktx = { group = "androidx.navigation", name = "navigation-runtime-ktx", version.ref = "navigationRuntimeKtx" }
+navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

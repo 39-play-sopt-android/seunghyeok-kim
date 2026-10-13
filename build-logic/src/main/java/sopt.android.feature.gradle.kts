@@ -14,4 +14,5 @@ dependencies {
 
     add("implementation", project(":core:designsystem"))
     add("implementation", project(":core:ui"))
+    add("implementation", project(":core:navigation"))
 }
