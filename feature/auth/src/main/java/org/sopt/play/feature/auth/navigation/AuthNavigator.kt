@@ -7,7 +7,7 @@ import androidx.navigation.compose.composable
 import org.sopt.play.feature.auth.AuthRoute
 import org.spot.play.core.navigation.Route
 
-fun NavController.navigateIntro(navOptions: NavOptions) {
+fun NavController.navigateAuth(navOptions: NavOptions) {
     navigate(route = Route.Auth, navOptions = navOptions)
 }
 

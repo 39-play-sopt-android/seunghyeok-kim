@@ -7,7 +7,7 @@ import androidx.navigation.compose.composable
 import org.sopt.play.feature.home.HomeRoute
 import org.spot.play.core.navigation.Route
 
-fun NavController.navigateIntro(navOptions: NavOptions) {
+fun NavController.navigateHome(navOptions: NavOptions) {
     navigate(route = Route.Home, navOptions = navOptions)
 }
 
