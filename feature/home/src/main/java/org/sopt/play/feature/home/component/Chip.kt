@@ -65,7 +65,7 @@ fun Chip(
 
 @Preview
 @Composable
-fun ChipPreview(){
+private fun ChipPreview(){
     PlaySoptPreviewTheme {
         Chip(
             title = "칩",

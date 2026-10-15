@@ -53,7 +53,7 @@ fun Banners(
 
 @Preview
 @Composable
-fun BannersPreview(){
+private fun BannersPreview() {
     PlaySoptPreviewTheme {
         Banners(banners = BannerDummies.bannerList)
     }

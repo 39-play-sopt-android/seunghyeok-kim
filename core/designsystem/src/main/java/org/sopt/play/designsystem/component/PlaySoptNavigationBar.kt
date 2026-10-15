@@ -80,7 +80,7 @@ private fun PlaySoptNavigationItem(
 
 @Preview
 @Composable
-fun PlaySoptNavigationBarPreview() {
+private fun PlaySoptNavigationBarPreview() {
     PlaySoptPreviewTheme {
         PlaySoptNavigationBar(
             currentTab = MainTab.Home,

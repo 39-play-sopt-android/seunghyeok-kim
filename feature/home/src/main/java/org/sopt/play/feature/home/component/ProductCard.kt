@@ -40,14 +40,12 @@ fun ProductCard(
     onItemClick: () -> Unit
 ) {
     Column(
-        modifier = modifier
-            .width(160.dp)
-            .clickable(onClick = onItemClick)
+        modifier = modifier.nullIndication(onClick = onItemClick)
     ) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(200.dp)
+                .height(220.dp)
         ) {
             Image(
                 painter = painterResource(id = product.thumbnail),
@@ -119,20 +117,21 @@ fun PlaySoptLikeButton(
 
 @Preview
 @Composable
-fun ProductCardPreview() {
+private fun ProductCardPreview() {
     PlaySoptPreviewTheme {
         ProductCard(
-            product = ProductDummies.productList.get(1),
+            modifier = Modifier.weight(1f),
+            product = ProductDummies.productList[2],
             isLiked = false,
             onLikeClick = {},
             onItemClick = {}
         )
         ProductCard(
-            product = ProductDummies.productList.get(1),
+            modifier = Modifier.weight(1f),
+            product = ProductDummies.productList[1],
             isLiked = true,
             onLikeClick = {},
             onItemClick = {}
         )
     }
 }
-

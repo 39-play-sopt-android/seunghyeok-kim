@@ -39,9 +39,9 @@ fun PlaySoptTopBar(
     }
 }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
-fun PlaySoptTopBarPreview() {
+private fun PlaySoptTopBarPreview() {
     PlaySoptPreviewTheme {
         PlaySoptTopBar(
             onSearchClick = {},

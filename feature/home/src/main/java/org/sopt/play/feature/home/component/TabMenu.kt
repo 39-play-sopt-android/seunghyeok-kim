@@ -55,7 +55,7 @@ fun TabMenu(
 
 @Preview
 @Composable
-fun TabMenuPreview() {
+private fun TabMenuPreview() {
     PlaySoptPreviewTheme {
         Row {
             TabMenu(

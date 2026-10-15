@@ -15,6 +15,8 @@ fun HomeRoute(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     HomeScreen(
-        modifier = modifier
+        modifier = modifier,
+        uiState = uiState,
+        onIntent = viewModel::onIntent
     )
 }

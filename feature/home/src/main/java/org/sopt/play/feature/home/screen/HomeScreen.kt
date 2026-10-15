@@ -24,31 +24,40 @@ import org.sopt.play.feature.home.component.Categories
 import org.sopt.play.feature.home.component.Menus
 import org.sopt.play.feature.home.component.ProductCard
 import org.sopt.play.feature.home.model.BannerDummies
+import org.sopt.play.feature.home.model.HomeIntent
+import org.sopt.play.feature.home.model.HomeUiState
 import org.sopt.play.feature.home.model.ProductDummies
 
 @Composable
 fun HomeScreen(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    uiState: HomeUiState = HomeUiState.Default(),
+    onIntent: (HomeIntent) -> Unit = {}
 ) {
     val scrollState = rememberScrollState()
 
+    val defaultState = uiState as? HomeUiState.Default ?: HomeUiState.Default()
+    val selectedMenu = defaultState.selectedMenu
+    val selectedCategory = defaultState.selectedCategory
+    val likedProductNames = defaultState.likedProductNames
+
     val itemCount = ProductDummies.productList.size
     val rowCount = (itemCount + 1) / 2
-    val gridHeight = if (rowCount > 0) (rowCount * 290 + (rowCount - 1) * 12).dp else 0.dp
+    val gridHeight = if (rowCount > 0) (rowCount * 315 + (rowCount - 1) * 12).dp else 0.dp
 
     Column(
         modifier = modifier.playSoptDefault(color = PlaySoptTheme.color.white, topPadding = false)
     ) {
         PlaySoptTopBar(
-            onSearchClick = {}
+            onSearchClick = { onIntent(HomeIntent.ClickSearch) }
         )
         Column(
             modifier = Modifier.verticalScroll(scrollState)
         ) {
             Menus(
                 title = listOf("2배 적립", "홈", "셀렉티드", "브랜드", "뷰티", "라이프", "랭킹"),
-                isSelect = "홈",
-                onItemClick = {}
+                isSelect = selectedMenu,
+                onItemClick = { menu -> onIntent(HomeIntent.SelectMenu(menu)) }
             )
             Column(
                 verticalArrangement = Arrangement.spacedBy(20.dp)
@@ -64,26 +73,27 @@ fun HomeScreen(
                     )
                     Categories(
                         title = listOf("전체", "상의", "팬츠", "원피스", "아우터", "스커트", "슈즈", "가방", "이너웨어/잠옷", "폰꾸미기"),
-                        isSelect = "전체",
-                        onItemClick = {}
+                        isSelect = selectedCategory,
+                        onItemClick = { category -> onIntent(HomeIntent.SelectCategory(category)) }
                     )
                 }
                 LazyVerticalGrid(
                     columns = GridCells.Fixed(2),
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(gridHeight)
-                        .padding(horizontal = 8.dp),
+                        .height(gridHeight),
                     userScrollEnabled = false,
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     items(itemCount) { index ->
+                        val product = ProductDummies.productList[index]
+                        val isLiked = likedProductNames.contains(product.productName)
+
                         ProductCard(
-                            product = ProductDummies.productList[index],
-                            isLiked = false,
-                            onLikeClick = {},
-                            onItemClick = {}
+                            product = product,
+                            isLiked = isLiked,
+                            onLikeClick = { onIntent(HomeIntent.ToggleLike(product.productName)) },
+                            onItemClick = { onIntent(HomeIntent.ClickProduct(product.productName)) }
                         )
                     }
                 }
@@ -95,8 +105,8 @@ fun HomeScreen(
 
 @Preview
 @Composable
-fun HomeScreenPreview() {
-    PlaySoptPreviewTheme {
+private fun HomeScreenPreview() {
+    PlaySoptTheme {
         HomeScreen()
     }
 }

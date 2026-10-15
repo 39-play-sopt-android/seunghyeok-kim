@@ -30,17 +30,13 @@ fun AuthRoute(
         }
     }
 
-    Scaffold{ paddingValues ->
-        when(uiState){
-            is AuthUiState.Login -> LoginScreen(
-                modifier = Modifier.padding(paddingValues),
-                navToSignUp = { viewModel.onIntent(AuthIntent.NavToRegister) },
-                onLoginClick = { viewModel.onIntent(AuthIntent.NavToHome) }
-            )
-            is AuthUiState.Register -> RegisterScreen(
-                modifier = Modifier.padding(paddingValues),
-                onSignUpClick = { viewModel.onIntent(AuthIntent.NavToBack) }
-            )
-        }
+    when(uiState){
+        is AuthUiState.Login -> LoginScreen(
+            navToSignUp = { viewModel.onIntent(AuthIntent.NavToRegister) },
+            onLoginClick = { viewModel.onIntent(AuthIntent.NavToHome) }
+        )
+        is AuthUiState.Register -> RegisterScreen(
+            onSignUpClick = { viewModel.onIntent(AuthIntent.NavToBack) }
+        )
     }
 }
