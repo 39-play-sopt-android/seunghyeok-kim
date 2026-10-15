@@ -1,5 +1,6 @@
 package org.sopt.play.designsystem.theme
 
+import android.app.Activity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -9,16 +10,31 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.unit.dp
+import androidx.core.view.WindowCompat
 
 @Composable
 fun PlaySoptTheme(
     content: @Composable () -> Unit
 ) {
+    val view = LocalView.current
+    if (!view.isInEditMode) {
+        SideEffect {
+            val window = (view.context as? Activity)?.window
+            if (window != null) {
+                val insetsController = WindowCompat.getInsetsController(window, view)
+                insetsController.isAppearanceLightStatusBars = true
+                insetsController.isAppearanceLightNavigationBars = true
+            }
+        }
+    }
+
     val colors: PlaySoptColor = PlaySoptColor
     val typography = playSoptTypography
 
@@ -45,7 +61,6 @@ fun PlaySoptPreviewTheme(
         Row(
             modifier = modifier
                 .clip(RoundedCornerShape(5.dp))
-                .background(PlaySoptColor.white)
                 .border(
                     1.dp,
                     Color(0xFF8A38F5),
