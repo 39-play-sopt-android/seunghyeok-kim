@@ -31,10 +31,13 @@ fun HomeScreen(
     modifier: Modifier = Modifier
 ) {
     val scrollState = rememberScrollState()
-    val gridHeight = ((ProductDummies.productList.size + 1) / 2 * 330).dp
+
+    val itemCount = ProductDummies.productList.size
+    val rowCount = (itemCount + 1) / 2
+    val gridHeight = if (rowCount > 0) (rowCount * 290 + (rowCount - 1) * 12).dp else 0.dp
 
     Column(
-        modifier = modifier.playSoptDefault(PlaySoptTheme.color.white)
+        modifier = modifier.playSoptDefault(color = PlaySoptTheme.color.white, topPadding = false)
     ) {
         PlaySoptTopBar(
             onSearchClick = {}
@@ -69,12 +72,13 @@ fun HomeScreen(
                     columns = GridCells.Fixed(2),
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(gridHeight),
+                        .height(gridHeight)
+                        .padding(horizontal = 8.dp),
                     userScrollEnabled = false,
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    verticalArrangement = Arrangement.spacedBy(15.dp)
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
-                    items(ProductDummies.productList.size) { index ->
+                    items(itemCount) { index ->
                         ProductCard(
                             product = ProductDummies.productList[index],
                             isLiked = false,
@@ -83,8 +87,8 @@ fun HomeScreen(
                         )
                     }
                 }
-                Spacer(modifier = Modifier.padding(bottom = 96.dp))
             }
+            Spacer(modifier = Modifier.height(96.dp))
         }
     }
 }

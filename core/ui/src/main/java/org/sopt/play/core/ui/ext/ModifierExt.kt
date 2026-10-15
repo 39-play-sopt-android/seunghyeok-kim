@@ -42,21 +42,21 @@ fun Modifier.customInsets(
 @Composable
 fun Modifier.playSoptDefault(
     color: Color = Color.White,
-    bottomPadding: Boolean = true
+    topPadding: Boolean = true,
+    bottomPadding: Boolean = false
 ): Modifier {
     return Modifier
         .background(color)
         .fillMaxSize()
         .then(this)
-        .customInsets(top = true, bottom = bottomPadding)
+        .customInsets(top = topPadding, bottom = bottomPadding)
 }
-
 
 @Composable
 fun Modifier.nullIndication(
     enabled: Boolean = true,
     onClick: () -> Unit
-): Modifier = this.clickable (
+): Modifier = this.clickable(
     interactionSource = remember { MutableInteractionSource() },
     indication = null,
     enabled = enabled

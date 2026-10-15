@@ -20,6 +20,8 @@ dependencies {
 
     implementation(project(":feature:auth"))
     implementation(project(":feature:home"))
+    implementation(project(":feature:like"))
+    implementation(project(":feature:mypage"))
 
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.navigation.runtime.ktx)
