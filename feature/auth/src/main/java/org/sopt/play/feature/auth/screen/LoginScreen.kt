@@ -24,6 +24,7 @@ import org.sopt.play.designsystem.theme.PlaySoptTheme
 
 @Composable
 fun LoginScreen(
+    modifier: Modifier = Modifier,
     navToSignUp: () -> Unit,
     onLoginClick: () -> Unit
 ){
@@ -52,7 +53,7 @@ fun LoginScreen(
             passwordStatus is TextFieldStatus.Valid
 
     Column(
-        modifier = Modifier
+        modifier = modifier
             .playSoptDefault(PlaySoptTheme.color.white)
             .verticalScroll(scrollState)
             .padding(horizontal = 16.dp)

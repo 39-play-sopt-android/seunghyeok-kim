@@ -13,7 +13,8 @@ import org.sopt.play.core.designsystem.R
 val Pretendard: FontFamily = FontFamily(
     Font(R.font.pretendard_medium, FontWeight.Medium),
     Font(R.font.pretendard_semibold, FontWeight.SemiBold),
-    Font(R.font.pretendard_bold, FontWeight.Bold)
+    Font(R.font.pretendard_bold, FontWeight.Bold),
+    Font(R.font.pretendard_regular, FontWeight.Normal)
 )
 
 @Immutable
@@ -22,7 +23,8 @@ data class PlaySoptTypography(
     val m18: TextStyle,
     val sb16: TextStyle,
     val m14: TextStyle,
-    val sb14: TextStyle
+    val sb14: TextStyle,
+    val r14: TextStyle
 )
 
 val playSoptTypography: PlaySoptTypography
@@ -34,6 +36,7 @@ val playSoptTypography: PlaySoptTypography
             m18 = TextStyle(fontFamily = pretendard, fontSize = 18.sp, fontWeight = FontWeight.Medium, lineHeight = 1.2.em, letterSpacing = (-0.01).em),
             sb16 = TextStyle(fontFamily = pretendard, fontSize = 16.sp, fontWeight = FontWeight.SemiBold, lineHeight = 1.2.em, letterSpacing = (-0.01).em),
             m14 = TextStyle(fontFamily = pretendard, fontSize = 14.sp, fontWeight = FontWeight.Medium, lineHeight = 1.2.em, letterSpacing = (-0.01).em),
-            sb14 = TextStyle(fontFamily = pretendard, fontSize = 14.sp, fontWeight = FontWeight.SemiBold, lineHeight = 1.2.em, letterSpacing = (-0.01).em)
+            sb14 = TextStyle(fontFamily = pretendard, fontSize = 14.sp, fontWeight = FontWeight.SemiBold, lineHeight = 1.2.em, letterSpacing = (-0.01).em),
+            r14 = TextStyle(fontFamily = pretendard, fontSize = 14.sp, fontWeight = FontWeight.Normal, lineHeight = 1.2.em, letterSpacing = (-0.01).em)
         )
     }
