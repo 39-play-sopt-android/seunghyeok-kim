@@ -16,8 +16,14 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
@@ -67,9 +73,18 @@ fun HomeScreen(
         }
     }
 
+    // 동적 높이 측정 (onGloballyPositioned)
+    var cardHeightPx by remember { mutableIntStateOf(0) }
+    val density = LocalDensity.current
+    val cardHeightDp = with(density) { cardHeightPx.toDp() }
+
     val itemCount = ProductDummies.productList.size
     val rowCount = (itemCount + 1) / 2
-    val gridHeight = if (rowCount > 0) (rowCount * 315 + (rowCount - 1) * 12).dp else 0.dp //수정 필요 (현재는 height(315) 하드 코딩 방식)
+    val gridHeight = if (cardHeightDp > 0.dp) {
+        (cardHeightDp * rowCount) + (12.dp * (rowCount - 1))
+    } else {
+        (rowCount * 315).dp
+    }
 
     Column(
         modifier = modifier.playSoptDefault(color = PlaySoptTheme.color.white, topPadding = false)
@@ -132,6 +147,13 @@ fun HomeScreen(
                             val isLiked = likedProductNames.contains(product.productName)
 
                             ProductCard(
+                                modifier = if (index == 0) {
+                                    Modifier.onGloballyPositioned { coordinates ->
+                                        if (cardHeightPx == 0 && coordinates.size.height > 0) {
+                                            cardHeightPx = coordinates.size.height
+                                        }
+                                    }
+                                } else Modifier,
                                 product = product,
                                 isLiked = isLiked,
                                 onLikeClick = { onIntent(HomeIntent.ToggleLike(product.productName)) },
