@@ -69,7 +69,7 @@ fun HomeScreen(
 
     val itemCount = ProductDummies.productList.size
     val rowCount = (itemCount + 1) / 2
-    val gridHeight = if (rowCount > 0) (rowCount * 315 + (rowCount - 1) * 12).dp else 0.dp
+    val gridHeight = if (rowCount > 0) (rowCount * 315 + (rowCount - 1) * 12).dp else 0.dp //수정 필요 (현재는 height(315) 하드 코딩 방식)
 
     Column(
         modifier = modifier.playSoptDefault(color = PlaySoptTheme.color.white, topPadding = false)

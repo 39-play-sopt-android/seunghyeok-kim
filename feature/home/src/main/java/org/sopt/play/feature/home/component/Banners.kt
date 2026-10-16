@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.gestures.snapping.rememberSnapFlingBehavior
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
@@ -14,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -32,6 +34,10 @@ fun Banners(
     val startIndex = (pageCount / 2) - ((pageCount / 2) % banners.size)
     val lazyListState = rememberLazyListState(initialFirstVisibleItemIndex = startIndex)
     val snapFlingBehavior = rememberSnapFlingBehavior(lazyListState = lazyListState)
+
+    //width 사이즈를 기종 기준으로 제작
+    val configuration = LocalConfiguration.current
+    val screenWidth = configuration.screenWidthDp
 
     LaunchedEffect(banners) {
         if (banners.isNotEmpty()) {
@@ -63,8 +69,8 @@ fun Banners(
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
-                    .width(328.dp)
-                    .height(195.dp)
+                    .width((screenWidth - 32).dp)
+                    .aspectRatio(328f / 195f)
             )
         }
     }
