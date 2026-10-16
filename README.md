@@ -21,6 +21,9 @@ sopt/
 │   ├── navigation                      ← 앱 내 네비게이션 정의
 │   └── ui                              ← 공용 UI 컴포넌트
 │
-├── feature/                            ← 화면 단위 기능 모듈
-    └── auth                           ← login
+└── feature/                            ← 화면 단위 기능 모듈
+    ├── auth                            ← login & register
+    ├── home                            ← 홈
+    ├── like                            ← 찜
+    └── mypage                          ← 마이페이지
 ```
