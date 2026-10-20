@@ -24,6 +24,7 @@ dependencies {
     implementation(project(":feature:mypage"))
 
     implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.navigation.runtime.ktx)
-    implementation(libs.navigation.compose)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.navigation3.runtime)
+    implementation(libs.navigation3.ui)
 }
