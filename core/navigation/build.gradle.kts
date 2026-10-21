@@ -9,4 +9,5 @@ setNamespace("core.navigation")
 
 dependencies {
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.navigation3.runtime)
 }

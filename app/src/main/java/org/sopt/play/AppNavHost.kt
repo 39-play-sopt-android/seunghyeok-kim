@@ -3,38 +3,68 @@ package org.sopt.play
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavDestination.Companion.hasRoute
-import androidx.navigation.NavDestination.Companion.hierarchy
-import androidx.navigation.NavGraph.Companion.findStartDestination
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
+import androidx.navigation3.runtime.NavEntry
+import androidx.navigation3.runtime.NavKey
+import androidx.navigation3.ui.NavDisplay
 import org.sopt.play.core.navigation.MainTab
 import org.sopt.play.core.navigation.Route
 import org.sopt.play.designsystem.component.PlaySoptNavigationBar
 import org.sopt.play.designsystem.theme.PlaySoptTheme
-import org.sopt.play.feature.auth.navigation.authNavGraph
-import org.sopt.play.feature.home.navigation.homeNavGraph
-import org.sopt.play.feature.like.navigation.likeNavGraph
-import org.sopt.play.feature.mypage.navigation.mypageNavGraph
+import org.sopt.play.feature.auth.AuthRoute
+import org.sopt.play.feature.home.HomeRoute
+import org.sopt.play.feature.like.LikeRoute
+import org.sopt.play.feature.mypage.MypageRoute
 
 @Composable
 fun AppNavHost(
-    modifier: Modifier = Modifier,
-    navController: NavHostController = rememberNavController()
+    modifier: Modifier = Modifier
 ) {
-    val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentDestination = navBackStackEntry?.destination
+    val backStack = remember { mutableStateListOf<NavKey>(Route.Auth) }
+    val currentDestination = backStack.lastOrNull()
 
-    val isAuthScreen = currentDestination?.hasRoute<Route.Auth>() == true
+    val isAuthScreen = currentDestination is Route.Auth
     val showBottomBar = !isAuthScreen && currentDestination != null
 
     val currentTab = MainTab.entries.find { tab ->
-        currentDestination?.hierarchy?.any { it.hasRoute(tab.route::class) } == true
+        currentDestination == tab.route
     } ?: MainTab.Home
+
+    val myEntryProvider: (NavKey) -> NavEntry<NavKey> = { key ->
+        NavEntry(key = key) {
+            when (key) {
+                is Route.Auth -> {
+                    AuthRoute(
+                        onNavToHome = {
+                            backStack.clear()
+                            backStack.add(Route.Home)
+                        },
+                        onBackClick = {
+                            if (backStack.size > 1) {
+                                backStack.removeAt(backStack.lastIndex)
+                            }
+                        }
+                    )
+                }
+
+                is Route.Home -> {
+                    HomeRoute()
+                }
+
+                is Route.Like -> {
+                    LikeRoute()
+                }
+
+                is Route.Mypage -> {
+                    MypageRoute()
+                }
+
+                else -> {}
+            }
+        }
+    }
 
     Scaffold(
         modifier = modifier,
@@ -44,34 +74,24 @@ fun AppNavHost(
                 PlaySoptNavigationBar(
                     currentTab = currentTab,
                     onTabSelected = { tab ->
-                        navController.navigate(tab.route) {
-                            popUpTo(navController.graph.findStartDestination().id) {
-                                saveState = true
-                            }
-                            launchSingleTop = true
-                            restoreState = true
+                        if (backStack.lastOrNull() != tab.route) {
+                            backStack.removeAll { it !is Route.Auth }
+                            backStack.add(tab.route)
                         }
                     }
                 )
             }
         }
     ) { innerPadding ->
-        NavHost(
-            navController = navController,
-            startDestination = Route.Auth,
-            modifier = Modifier.padding(innerPadding)
-        ) {
-            authNavGraph(
-                onNavToHome = {
-                    navController.navigate(Route.Home) {
-                        popUpTo(Route.Auth) { inclusive = true }
-                    }
-                },
-                onBackClick = {}
-            )
-            homeNavGraph()
-            likeNavGraph()
-            mypageNavGraph()
-        }
+        NavDisplay(
+            backStack = backStack,
+            modifier = Modifier.padding(innerPadding),
+            onBack = {
+                if (backStack.size > 1) {
+                    backStack.removeAt(backStack.lastIndex)
+                }
+            },
+            entryProvider = myEntryProvider
+        )
     }
 }
