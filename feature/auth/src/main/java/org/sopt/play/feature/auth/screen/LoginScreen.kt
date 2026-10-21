@@ -88,6 +88,7 @@ fun LoginScreen(
             PlaySoptButton(
                 text = "로그인",
                 onClick = {
+                    focusManager.clearFocus()
                     onLoginClick()
                 },
                 enabled = isLoginEnabled

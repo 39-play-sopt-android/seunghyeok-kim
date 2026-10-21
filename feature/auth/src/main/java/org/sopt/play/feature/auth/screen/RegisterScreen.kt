@@ -107,6 +107,7 @@ fun RegisterScreen(
         PlaySoptButton(
             text = "회원가입",
             onClick = {
+                focusManager.clearFocus()
                 onSignUpClick()
             },
             enabled = isSignUpEnabled
