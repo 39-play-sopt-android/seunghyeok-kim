@@ -32,11 +32,11 @@ val playSoptTypography: PlaySoptTypography
     get() {
         val pretendard = Pretendard
         return PlaySoptTypography(
-            b28 = TextStyle(fontFamily = pretendard, fontSize = 28.sp, fontWeight = FontWeight.Bold, lineHeight = 1.2.em, letterSpacing = (-0.01).em),
-            m18 = TextStyle(fontFamily = pretendard, fontSize = 18.sp, fontWeight = FontWeight.Medium, lineHeight = 1.2.em, letterSpacing = (-0.01).em),
-            sb16 = TextStyle(fontFamily = pretendard, fontSize = 16.sp, fontWeight = FontWeight.SemiBold, lineHeight = 1.2.em, letterSpacing = (-0.01).em),
-            m14 = TextStyle(fontFamily = pretendard, fontSize = 14.sp, fontWeight = FontWeight.Medium, lineHeight = 1.2.em, letterSpacing = (-0.01).em),
-            sb14 = TextStyle(fontFamily = pretendard, fontSize = 14.sp, fontWeight = FontWeight.SemiBold, lineHeight = 1.2.em, letterSpacing = (-0.01).em),
-            r14 = TextStyle(fontFamily = pretendard, fontSize = 14.sp, fontWeight = FontWeight.Normal, lineHeight = 1.2.em, letterSpacing = (-0.01).em)
+            b28 = TextStyle(fontFamily = pretendard, fontSize = 28.sp, fontWeight = FontWeight.Bold, lineHeight = 1.2.em, letterSpacing = (-0.01).em, color = PlaySoptColor.black),
+            m18 = TextStyle(fontFamily = pretendard, fontSize = 18.sp, fontWeight = FontWeight.Medium, lineHeight = 1.2.em, letterSpacing = (-0.01).em, color = PlaySoptColor.black),
+            sb16 = TextStyle(fontFamily = pretendard, fontSize = 16.sp, fontWeight = FontWeight.SemiBold, lineHeight = 1.2.em, letterSpacing = (-0.01).em, color = PlaySoptColor.black),
+            m14 = TextStyle(fontFamily = pretendard, fontSize = 14.sp, fontWeight = FontWeight.Medium, lineHeight = 1.2.em, letterSpacing = (-0.01).em, color = PlaySoptColor.black),
+            sb14 = TextStyle(fontFamily = pretendard, fontSize = 14.sp, fontWeight = FontWeight.SemiBold, lineHeight = 1.2.em, letterSpacing = (-0.01).em, color = PlaySoptColor.black),
+            r14 = TextStyle(fontFamily = pretendard, fontSize = 14.sp, fontWeight = FontWeight.Normal, lineHeight = 1.2.em, letterSpacing = (-0.01).em, color = PlaySoptColor.black)
         )
     }
