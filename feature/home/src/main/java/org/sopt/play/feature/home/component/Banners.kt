@@ -6,10 +6,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -48,19 +47,17 @@ fun Banners(
     LazyRow(
         state = lazyListState,
         flingBehavior = snapFlingBehavior,
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth().padding(vertical = 8.dp),
         contentPadding = PaddingValues(horizontal = 16.dp),
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         items(
             count = pageCount,
             key = { index ->
-                // 인덱스가 커져도 고유성을 유지하는 key
                 val actualIndex = index % banners.size
                 "$index-$actualIndex-${banners[actualIndex].thumbnail}"
             }
         ) { index ->
-            // 모듈러 연산(%)으로 실제 배너 인덱스 참조
             val actualIndex = index % banners.size
             val banner = banners[actualIndex]
 
