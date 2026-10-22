@@ -3,11 +3,9 @@ package org.sopt.play
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.navigation3.runtime.NavEntry
-import androidx.navigation3.runtime.NavKey
+import androidx.navigation3.runtime.entryProvider
+import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
 import org.sopt.play.core.navigation.MainTab
 import org.sopt.play.core.navigation.Route
@@ -22,47 +20,14 @@ import org.sopt.play.feature.mypage.MypageRoute
 fun AppNavHost(
     modifier: Modifier = Modifier
 ) {
-    val backStack = remember { mutableStateListOf<NavKey>(Route.Auth) }
+    val backStack = rememberNavBackStack(Route.Auth)
     val currentDestination = backStack.lastOrNull()
 
-    val isAuthScreen = currentDestination is Route.Auth
-    val showBottomBar = !isAuthScreen && currentDestination != null
+    val currentTab = MainTab.entries.find { it.route == currentDestination }
 
-    val currentTab = MainTab.entries.find { tab ->
-        currentDestination == tab.route
-    } ?: MainTab.Home
-
-    val myEntryProvider: (NavKey) -> NavEntry<NavKey> = { key ->
-        NavEntry(key = key) {
-            when (key) {
-                is Route.Auth -> {
-                    AuthRoute(
-                        onNavToHome = {
-                            backStack.clear()
-                            backStack.add(Route.Home)
-                        },
-                        onBackClick = {
-                            if (backStack.size > 1) {
-                                backStack.removeAt(backStack.lastIndex)
-                            }
-                        }
-                    )
-                }
-
-                is Route.Home -> {
-                    HomeRoute()
-                }
-
-                is Route.Like -> {
-                    LikeRoute()
-                }
-
-                is Route.Mypage -> {
-                    MypageRoute()
-                }
-
-                else -> {}
-            }
+    fun popBackStack() {
+        if (backStack.size > 1) {
+            backStack.removeAt(backStack.lastIndex)
         }
     }
 
@@ -70,12 +35,12 @@ fun AppNavHost(
         modifier = modifier,
         containerColor = PlaySoptTheme.color.white,
         bottomBar = {
-            if (showBottomBar) {
+            if (currentTab != null) {
                 PlaySoptNavigationBar(
                     currentTab = currentTab,
                     onTabSelected = { tab ->
                         if (backStack.lastOrNull() != tab.route) {
-                            backStack.removeAll { it !is Route.Auth }
+                            backStack.clear()
                             backStack.add(tab.route)
                         }
                     }
@@ -86,12 +51,27 @@ fun AppNavHost(
         NavDisplay(
             backStack = backStack,
             modifier = Modifier.padding(innerPadding),
-            onBack = {
-                if (backStack.size > 1) {
-                    backStack.removeAt(backStack.lastIndex)
+            onBack = ::popBackStack,
+            entryProvider = entryProvider {
+                entry<Route.Auth> {
+                    AuthRoute(
+                        onNavToHome = {
+                            backStack.clear()
+                            backStack.add(Route.Home)
+                        },
+                        onBackClick = ::popBackStack
+                    )
                 }
-            },
-            entryProvider = myEntryProvider
+                entry<Route.Home> {
+                    HomeRoute()
+                }
+                entry<Route.Like> {
+                    LikeRoute()
+                }
+                entry<Route.Mypage> {
+                    MypageRoute()
+                }
+            }
         )
     }
 }

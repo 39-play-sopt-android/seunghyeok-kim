@@ -30,13 +30,18 @@ data class PlaySoptTypography(
 val playSoptTypography: PlaySoptTypography
     @Composable
     get() {
-        val pretendard = Pretendard
+        val baseStyle = TextStyle(
+            fontFamily = Pretendard,
+            lineHeight = 1.2.em,
+            letterSpacing = (-0.01).em,
+            color = PlaySoptColor.black
+        )
         return PlaySoptTypography(
-            b28 = TextStyle(fontFamily = pretendard, fontSize = 28.sp, fontWeight = FontWeight.Bold, lineHeight = 1.2.em, letterSpacing = (-0.01).em, color = PlaySoptColor.black),
-            m18 = TextStyle(fontFamily = pretendard, fontSize = 18.sp, fontWeight = FontWeight.Medium, lineHeight = 1.2.em, letterSpacing = (-0.01).em, color = PlaySoptColor.black),
-            sb16 = TextStyle(fontFamily = pretendard, fontSize = 16.sp, fontWeight = FontWeight.SemiBold, lineHeight = 1.2.em, letterSpacing = (-0.01).em, color = PlaySoptColor.black),
-            m14 = TextStyle(fontFamily = pretendard, fontSize = 14.sp, fontWeight = FontWeight.Medium, lineHeight = 1.2.em, letterSpacing = (-0.01).em, color = PlaySoptColor.black),
-            sb14 = TextStyle(fontFamily = pretendard, fontSize = 14.sp, fontWeight = FontWeight.SemiBold, lineHeight = 1.2.em, letterSpacing = (-0.01).em, color = PlaySoptColor.black),
-            r14 = TextStyle(fontFamily = pretendard, fontSize = 14.sp, fontWeight = FontWeight.Normal, lineHeight = 1.2.em, letterSpacing = (-0.01).em, color = PlaySoptColor.black)
+            b28 = baseStyle.copy(fontSize = 28.sp, fontWeight = FontWeight.Bold),
+            m18 = baseStyle.copy(fontSize = 18.sp, fontWeight = FontWeight.Medium),
+            sb16 = baseStyle.copy(fontSize = 16.sp, fontWeight = FontWeight.SemiBold),
+            m14 = baseStyle.copy(fontSize = 14.sp, fontWeight = FontWeight.Medium),
+            sb14 = baseStyle.copy(fontSize = 14.sp, fontWeight = FontWeight.SemiBold),
+            r14 = baseStyle.copy(fontSize = 14.sp, fontWeight = FontWeight.Normal)
         )
     }

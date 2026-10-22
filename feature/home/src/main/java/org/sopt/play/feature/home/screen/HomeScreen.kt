@@ -68,7 +68,7 @@ fun HomeScreen(
     }
 
     Column(
-        modifier = modifier.playSoptDefault(color = PlaySoptTheme.color.white, topPadding = false)
+        modifier = modifier.playSoptDefault(color = PlaySoptTheme.color.white)
     ) {
         PlaySoptTopBar(
             onSearchClick = { onIntent(HomeIntent.ClickSearch) }
@@ -82,7 +82,7 @@ fun HomeScreen(
                 verticalArrangement = Arrangement.spacedBy(20.dp)
             ) {
                 item {
-                    Column() {
+                    Column {
                         Menus(
                             title = menuList,
                             isSelect = selectedMenu,
