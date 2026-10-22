@@ -24,9 +24,9 @@ import org.sopt.play.designsystem.theme.PlaySoptTheme
 
 @Composable
 fun LoginScreen(
-    modifier: Modifier = Modifier,
     navToSignUp: () -> Unit,
-    onLoginClick: () -> Unit
+    onLoginClick: () -> Unit,
+    modifier: Modifier = Modifier,
 ){
     val focusManager = LocalFocusManager.current
     val scrollState = rememberScrollState()

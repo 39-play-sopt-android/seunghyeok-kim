@@ -13,14 +13,15 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun PlaySoptIconButton(
+    onClick: () -> Unit,
     @DrawableRes iconId: Int,
     modifier: Modifier = Modifier,
     buttonSize: Dp = 48.dp,
     iconSize: Dp = 28.dp,
     tint: Color = Color.Unspecified,
     contentDescription: String? = null,
-    onClick: () -> Unit,
 ) {
+
     IconButton(
         modifier = modifier.size(buttonSize),
         onClick = onClick,

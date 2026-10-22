@@ -24,9 +24,9 @@ import org.sopt.play.designsystem.theme.PlaySoptTheme
 
 @Composable
 fun PlaySoptNavigationBar(
-    modifier: Modifier = Modifier,
     currentTab: MainTab,
     onTabSelected: (MainTab) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Row(
         modifier = modifier
@@ -37,15 +37,14 @@ fun PlaySoptNavigationBar(
                 color = PlaySoptTheme.color.gray2,
             )
             .customInsets(bottom = true),
-        horizontalArrangement = Arrangement.SpaceAround,
         verticalAlignment = Alignment.CenterVertically,
     ) {
         MainTab.entries.forEach { tab ->
             PlaySoptNavigationItem(
-                modifier = Modifier.weight(1f),
                 type = tab,
                 isSelected = tab == currentTab,
                 onClick = { onTabSelected(tab) },
+                modifier = Modifier.weight(1f)
             )
         }
     }
@@ -53,22 +52,22 @@ fun PlaySoptNavigationBar(
 
 @Composable
 private fun PlaySoptNavigationItem(
-    modifier: Modifier = Modifier,
     type: MainTab,
     isSelected: Boolean,
     onClick: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     Column(
         modifier = modifier
             .nullIndication(onClick = onClick)
             .padding(vertical = 6.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(4.dp),
+        verticalArrangement = Arrangement.spacedBy(2.dp),
     ) {
         Icon(
             painter = painterResource(id = if (isSelected) type.selectedIcon else type.unSelectedIcon),
             contentDescription = type.label,
-            tint = PlaySoptTheme.color.black,
+            tint =  if (isSelected) PlaySoptTheme.color.black else PlaySoptTheme.color.gray5,
             modifier = Modifier.size(24.dp),
         )
         Text(

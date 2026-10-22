@@ -17,8 +17,8 @@ import org.sopt.play.designsystem.theme.PlaySoptTheme
 
 @Composable
 fun PlaySoptTopBar(
-    modifier: Modifier = Modifier,
     onSearchClick: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Row(
         modifier = modifier

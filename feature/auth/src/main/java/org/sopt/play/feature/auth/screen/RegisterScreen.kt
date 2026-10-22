@@ -21,8 +21,8 @@ import org.sopt.play.designsystem.theme.PlaySoptTheme
 
 @Composable
 fun RegisterScreen(
+    onSignUpClick: () -> Unit,
     modifier: Modifier = Modifier,
-    onSignUpClick: () -> Unit
 ){
     val focusManager = LocalFocusManager.current
     val scrollState = rememberScrollState()
