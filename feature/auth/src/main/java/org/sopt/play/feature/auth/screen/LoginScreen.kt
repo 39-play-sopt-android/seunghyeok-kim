@@ -25,7 +25,8 @@ import org.sopt.play.designsystem.theme.PlaySoptTheme
 @Composable
 fun LoginScreen(
     navToSignUp: () -> Unit,
-    onLoginClick: () -> Unit
+    onLoginClick: () -> Unit,
+    modifier: Modifier = Modifier,
 ){
     val focusManager = LocalFocusManager.current
     val scrollState = rememberScrollState()
@@ -52,7 +53,7 @@ fun LoginScreen(
             passwordStatus is TextFieldStatus.Valid
 
     Column(
-        modifier = Modifier
+        modifier = modifier
             .playSoptDefault(PlaySoptTheme.color.white)
             .verticalScroll(scrollState)
             .padding(horizontal = 16.dp)
@@ -87,6 +88,7 @@ fun LoginScreen(
             PlaySoptButton(
                 text = "로그인",
                 onClick = {
+                    focusManager.clearFocus()
                     onLoginClick()
                 },
                 enabled = isLoginEnabled

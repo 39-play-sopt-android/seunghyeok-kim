@@ -14,8 +14,19 @@ android {
 }
 
 dependencies {
-    implementation(libs.androidx.activity.compose)
+
     implementation(project(":core:designsystem"))
     implementation(project(":core:navigation"))
+
     implementation(project(":feature:auth"))
+    implementation(project(":feature:home"))
+    implementation(project(":feature:like"))
+    implementation(project(":feature:mypage"))
+
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.navigation3.runtime)
+    implementation(libs.navigation3.ui)
+    implementation(libs.navigationevent)
+    implementation(libs.navigationevent.compose)
 }

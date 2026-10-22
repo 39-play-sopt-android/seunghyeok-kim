@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.displayCutout
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.only
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.systemGestures
 import androidx.compose.foundation.layout.tappableElement
@@ -18,7 +17,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
 
 @Composable
 fun Modifier.customInsets(
@@ -42,21 +40,21 @@ fun Modifier.customInsets(
 @Composable
 fun Modifier.playSoptDefault(
     color: Color = Color.White,
-    bottomPadding: Boolean = true
+    topPadding: Boolean = false,
+    bottomPadding: Boolean = false
 ): Modifier {
     return Modifier
         .background(color)
         .fillMaxSize()
         .then(this)
-        .customInsets(top = true, bottom = bottomPadding)
+        .customInsets(top = topPadding, bottom = bottomPadding)
 }
-
 
 @Composable
 fun Modifier.nullIndication(
     enabled: Boolean = true,
     onClick: () -> Unit
-): Modifier = this.clickable (
+): Modifier = this.clickable(
     interactionSource = remember { MutableInteractionSource() },
     indication = null,
     enabled = enabled

@@ -13,7 +13,8 @@ import org.sopt.play.core.designsystem.R
 val Pretendard: FontFamily = FontFamily(
     Font(R.font.pretendard_medium, FontWeight.Medium),
     Font(R.font.pretendard_semibold, FontWeight.SemiBold),
-    Font(R.font.pretendard_bold, FontWeight.Bold)
+    Font(R.font.pretendard_bold, FontWeight.Bold),
+    Font(R.font.pretendard_regular, FontWeight.Normal)
 )
 
 @Immutable
@@ -22,18 +23,25 @@ data class PlaySoptTypography(
     val m18: TextStyle,
     val sb16: TextStyle,
     val m14: TextStyle,
-    val sb14: TextStyle
+    val sb14: TextStyle,
+    val r14: TextStyle
 )
 
 val playSoptTypography: PlaySoptTypography
     @Composable
     get() {
-        val pretendard = Pretendard
+        val baseStyle = TextStyle(
+            fontFamily = Pretendard,
+            lineHeight = 1.2.em,
+            letterSpacing = (-0.01).em,
+            color = PlaySoptColor.black
+        )
         return PlaySoptTypography(
-            b28 = TextStyle(fontFamily = pretendard, fontSize = 28.sp, fontWeight = FontWeight.Bold, lineHeight = 1.2.em, letterSpacing = (-0.01).em),
-            m18 = TextStyle(fontFamily = pretendard, fontSize = 18.sp, fontWeight = FontWeight.Medium, lineHeight = 1.2.em, letterSpacing = (-0.01).em),
-            sb16 = TextStyle(fontFamily = pretendard, fontSize = 16.sp, fontWeight = FontWeight.SemiBold, lineHeight = 1.2.em, letterSpacing = (-0.01).em),
-            m14 = TextStyle(fontFamily = pretendard, fontSize = 14.sp, fontWeight = FontWeight.Medium, lineHeight = 1.2.em, letterSpacing = (-0.01).em),
-            sb14 = TextStyle(fontFamily = pretendard, fontSize = 14.sp, fontWeight = FontWeight.SemiBold, lineHeight = 1.2.em, letterSpacing = (-0.01).em)
+            b28 = baseStyle.copy(fontSize = 28.sp, fontWeight = FontWeight.Bold),
+            m18 = baseStyle.copy(fontSize = 18.sp, fontWeight = FontWeight.Medium),
+            sb16 = baseStyle.copy(fontSize = 16.sp, fontWeight = FontWeight.SemiBold),
+            m14 = baseStyle.copy(fontSize = 14.sp, fontWeight = FontWeight.Medium),
+            sb14 = baseStyle.copy(fontSize = 14.sp, fontWeight = FontWeight.SemiBold),
+            r14 = baseStyle.copy(fontSize = 14.sp, fontWeight = FontWeight.Normal)
         )
     }

@@ -21,7 +21,8 @@ import org.sopt.play.designsystem.theme.PlaySoptTheme
 
 @Composable
 fun RegisterScreen(
-    onSignUpClick: () -> Unit
+    onSignUpClick: () -> Unit,
+    modifier: Modifier = Modifier,
 ){
     val focusManager = LocalFocusManager.current
     val scrollState = rememberScrollState()
@@ -60,7 +61,7 @@ fun RegisterScreen(
             passwordCheckStatus is TextFieldStatus.Valid
 
     Column(
-        modifier = Modifier
+        modifier = modifier
             .playSoptDefault(PlaySoptTheme.color.white)
             .verticalScroll(scrollState)
             .padding(16.dp, 60.dp, 16.dp, 40.dp),
@@ -106,6 +107,7 @@ fun RegisterScreen(
         PlaySoptButton(
             text = "회원가입",
             onClick = {
+                focusManager.clearFocus()
                 onSignUpClick()
             },
             enabled = isSignUpEnabled
