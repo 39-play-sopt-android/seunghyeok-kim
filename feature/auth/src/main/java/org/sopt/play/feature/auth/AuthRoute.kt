@@ -11,6 +11,7 @@ import org.koin.androidx.compose.koinViewModel
 import org.sopt.play.feature.auth.model.AuthIntent
 import org.sopt.play.feature.auth.model.AuthUiState.Login
 import org.sopt.play.feature.auth.model.AuthUiState.Register
+import org.sopt.play.feature.auth.model.AuthUiState.Success
 import org.sopt.play.feature.auth.screen.LoginScreen
 import org.sopt.play.feature.auth.screen.RegisterScreen
 
@@ -35,6 +36,12 @@ fun AuthRoute(
         }
     }
 
+    LaunchedEffect(uiState) {
+        if (uiState is Success) {
+            onNavToHome()
+        }
+    }
+
     when (uiState) {
         is Login -> LoginScreen(
             navToSignUp = { viewModel.onIntent(AuthIntent.NavToRegister) },
@@ -45,7 +52,7 @@ fun AuthRoute(
             RegisterScreen( onSignUpClick = { name, email, pw -> viewModel.register(name, email, pw) })
         }
         else -> {
-            // Loading, Success, Error
+            // Loading, Error
         }
     }
 }
