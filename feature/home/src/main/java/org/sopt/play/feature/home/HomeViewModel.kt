@@ -16,7 +16,7 @@ class HomeViewModel : ViewModel() {
         HomeUiState.Default(
             selectedMenu = "홈",
             selectedCategory = "전체",
-            likedProductNames = emptySet(),
+            likedProduct = emptySet(),
         )
     )
     val uiState: StateFlow<HomeUiState> = _uiState.asStateFlow()
@@ -37,11 +37,11 @@ class HomeViewModel : ViewModel() {
                 _uiState.value = current.copy(selectedCategory = intent.category)
             }
             is HomeIntent.ToggleLike -> {
-                val updatedLikes = current.likedProductNames.toMutableSet().apply {
-                    if (contains(intent.productName)) remove(intent.productName)
-                    else add(intent.productName)
+                val updatedLikes = current.likedProduct.toMutableSet().apply {
+                    if (contains(intent.productId)) remove(intent.productId)
+                    else add(intent.productId)
                 }
-                _uiState.value = current.copy(likedProductNames = updatedLikes)
+                _uiState.value = current.copy(likedProduct = updatedLikes)
             }
             is HomeIntent.ClickProduct -> {
 

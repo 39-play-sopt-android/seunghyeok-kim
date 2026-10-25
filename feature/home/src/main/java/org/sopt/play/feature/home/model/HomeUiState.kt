@@ -8,7 +8,7 @@ sealed interface HomeUiState {
     data class Default(
         val selectedMenu: String = "홈",
         val selectedCategory: String = "전체",
-        val likedProductNames: Set<String> = emptySet(),
+        val likedProduct: Set<Int> = emptySet(),
     ) : HomeUiState
 }
 
@@ -16,6 +16,6 @@ sealed interface HomeIntent {
     data object ClickSearch : HomeIntent
     data class SelectMenu(val menu: String) : HomeIntent
     data class SelectCategory(val category: String) : HomeIntent
-    data class ToggleLike(val productName: String) : HomeIntent
-    data class ClickProduct(val productName: String) : HomeIntent
+    data class ToggleLike(val productId: Int) : HomeIntent
+    data class ClickProduct(val productId: Int) : HomeIntent
 }

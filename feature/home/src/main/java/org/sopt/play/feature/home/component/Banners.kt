@@ -1,20 +1,15 @@
 package org.sopt.play.feature.home.component
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.gestures.snapping.rememberSnapFlingBehavior
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -29,47 +24,26 @@ fun Banners(
 ) {
     if (banners.isEmpty()) return
 
-    val pageCount = Int.MAX_VALUE
-    val startIndex = (pageCount / 2) - ((pageCount / 2) % banners.size)
-    val lazyListState = rememberLazyListState(initialFirstVisibleItemIndex = startIndex)
-    val snapFlingBehavior = rememberSnapFlingBehavior(lazyListState = lazyListState)
+    val pagerState = rememberPagerState(pageCount = { banners.size })
 
-    //width 사이즈를 기종 기준으로 제작
-    val configuration = LocalConfiguration.current
-    val screenWidth = configuration.screenWidthDp
-
-    LaunchedEffect(banners) {
-        if (banners.isNotEmpty()) {
-            lazyListState.scrollToItem(startIndex)
-        }
-    }
-
-    LazyRow(
-        state = lazyListState,
-        flingBehavior = snapFlingBehavior,
-        modifier = modifier.fillMaxWidth().padding(vertical = 8.dp),
+    HorizontalPager(
+        state = pagerState,
         contentPadding = PaddingValues(horizontal = 16.dp),
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-    ) {
-        items(
-            count = pageCount,
-            key = { index ->
-                val actualIndex = index % banners.size
-                "$index-$actualIndex-${banners[actualIndex].thumbnail}"
-            }
-        ) { index ->
-            val actualIndex = index % banners.size
-            val banner = banners[actualIndex]
+        pageSpacing = 6.dp,
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp)
+    ) { page ->
+        val banner = banners[page]
 
-            Image(
-                painter = painterResource(id = banner.thumbnail),
-                contentDescription = null,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .width((screenWidth - 32).dp)
-                    .aspectRatio(328f / 195f)
-            )
-        }
+        Image(
+            painter = painterResource(id = banner.thumbnail),
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier
+                .fillMaxWidth()
+                .aspectRatio(328f / 195f)
+        )
     }
 }
 

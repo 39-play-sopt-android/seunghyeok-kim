@@ -42,7 +42,7 @@ fun HomeScreen(
     val defaultState = uiState as? HomeUiState.Default ?: HomeUiState.Default()
     val selectedMenu = defaultState.selectedMenu
     val selectedCategory = defaultState.selectedCategory
-    val likedProductNames = defaultState.likedProductNames
+    val likedProductNames = defaultState.likedProduct
 
     val menuList = listOf("2배 적립", "홈", "셀렉티드", "브랜드", "뷰티", "라이프", "랭킹")
     val initialPageIndex = menuList.indexOf(selectedMenu).coerceAtLeast(0)
@@ -121,13 +121,13 @@ fun HomeScreen(
                         horizontalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
                         rowProducts.forEach { product ->
-                            val isLiked = likedProductNames.contains(product.productName)
+                            val isLiked = likedProductNames.contains(product.productId)
                             Box(modifier = Modifier.weight(1f)) {
                                 ProductCard(
                                     product = product,
                                     isLiked = isLiked,
-                                    onLikeClick = { onIntent(HomeIntent.ToggleLike(product.productName)) },
-                                    onItemClick = { onIntent(HomeIntent.ClickProduct(product.productName)) }
+                                    onLikeClick = { onIntent(HomeIntent.ToggleLike(product.productId)) },
+                                    onItemClick = { onIntent(HomeIntent.ClickProduct(product.productId)) }
                                 )
                             }
                         }
@@ -137,7 +137,7 @@ fun HomeScreen(
                     }
                 }
                 item {
-                    Spacer(modifier = Modifier.height(96.dp))
+                    Spacer(modifier = Modifier.height(76.dp))
                 }
             }
         }
