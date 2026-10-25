@@ -7,6 +7,5 @@ plugins {
 setNamespace("feature.auth")
 
 dependencies {
-    implementation(project(":core:designsystem"))
-    implementation(project(":core:ui"))
+
 }
