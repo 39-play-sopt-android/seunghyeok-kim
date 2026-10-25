@@ -1,7 +1,6 @@
-package org.sopt.play.designsystem.theme
+package org.sopt.play.core.designsystem.theme
 
 import androidx.compose.runtime.Stable
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 
 
