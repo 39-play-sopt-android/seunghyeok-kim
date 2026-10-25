@@ -14,18 +14,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
+import org.sopt.play.core.designsystem.component.PlaySoptButton
+import org.sopt.play.core.designsystem.theme.PlaySoptTheme
 import org.sopt.play.core.ui.ext.isValidEmail
 import org.sopt.play.core.ui.ext.nullIndication
 import org.sopt.play.core.ui.ext.playSoptDefault
-import org.sopt.play.core.designsystem.component.PlaySoptButton
 import org.sopt.play.designsystem.component.PlaySoptTextField
 import org.sopt.play.designsystem.component.TextFieldStatus
-import org.sopt.play.core.designsystem.theme.PlaySoptTheme
 
 @Composable
 fun LoginScreen(
     navToSignUp: () -> Unit,
-    onLoginClick: () -> Unit,
+    onLoginClick: (String, String) -> Unit,
     modifier: Modifier = Modifier,
 ){
     val focusManager = LocalFocusManager.current
@@ -40,14 +40,11 @@ fun LoginScreen(
         else -> TextFieldStatus.Valid
     }
 
-
     val passwordStatus: TextFieldStatus = when {
         passwordState.text.isEmpty() -> TextFieldStatus.Default
         passwordState.text.length < 6 -> TextFieldStatus.Error("6자 이상의 비밀번호를 입력해주세요.")
         else -> TextFieldStatus.Valid
     }
-
-
 
     val isLoginEnabled = emailStatus is TextFieldStatus.Valid &&
             passwordStatus is TextFieldStatus.Valid
@@ -89,7 +86,7 @@ fun LoginScreen(
                 text = "로그인",
                 onClick = {
                     focusManager.clearFocus()
-                    onLoginClick()
+                    onLoginClick(emailState.text.toString(), passwordState.text.toString())
                 },
                 enabled = isLoginEnabled
             )

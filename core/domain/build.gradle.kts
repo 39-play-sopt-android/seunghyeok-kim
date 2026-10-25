@@ -1,13 +1,15 @@
+import org.sopt.play.setNamespace
+
 plugins {
-    id("java-library")
-    alias(libs.plugins.kotlinJvm)
+    alias(libs.plugins.sopt.android.library)
 }
-java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
-}
-kotlin {
-    compilerOptions {
-        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11
-    }
+
+setNamespace("core.domain")
+
+dependencies {
+    implementation(project(":core:datastore"))
+    implementation(libs.coroutines.core)
+    implementation(libs.coroutines.android)
+    implementation(libs.koin.core)
+    implementation(libs.koin.android)
 }

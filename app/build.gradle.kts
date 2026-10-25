@@ -14,9 +14,17 @@ android {
 }
 
 dependencies {
+    implementation(libs.coroutines.core)
+    implementation(libs.coroutines.android)
+
+    implementation(libs.koin.core)
+    implementation(libs.koin.android)
+    implementation(libs.koin.androidx.compose)
 
     implementation(project(":core:designsystem"))
     implementation(project(":core:navigation"))
+    implementation(project(":core:datastore"))
+    implementation(project(":core:domain"))
 
     implementation(project(":feature:auth"))
     implementation(project(":feature:home"))
