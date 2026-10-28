@@ -1,6 +1,5 @@
 package org.sopt.play.designsystem.component
 
-import android.util.Patterns
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.tween
@@ -36,7 +35,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
-import org.sopt.play.designsystem.theme.PlaySoptTheme
+import org.sopt.play.core.designsystem.theme.PlaySoptTheme
 
 sealed class TextFieldStatus {
     data object Default : TextFieldStatus()
