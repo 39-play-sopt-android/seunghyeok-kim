@@ -19,8 +19,8 @@ import org.sopt.play.core.designsystem.theme.PlaySoptTheme
 import org.sopt.play.core.ui.ext.isValidEmail
 import org.sopt.play.core.ui.ext.nullIndication
 import org.sopt.play.core.ui.ext.playSoptDefault
-import org.sopt.play.designsystem.component.PlaySoptTextField
-import org.sopt.play.designsystem.component.TextFieldStatus
+import org.sopt.play.core.designsystem.component.PlaySoptTextField
+import org.sopt.play.core.designsystem.component.TextFieldStatus
 
 @Composable
 fun LoginScreen(
