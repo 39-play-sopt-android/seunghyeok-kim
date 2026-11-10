@@ -49,7 +49,9 @@ fun AuthRoute(
         )
         is Register -> {
             BackHandler { viewModel.onIntent(AuthIntent.NavToBack) }
-            RegisterScreen( onSignUpClick = { name, email, pw -> viewModel.register(name, email, pw) })
+            RegisterScreen(
+                onSignUpClick = { name, email, pw -> viewModel.register(name, email, pw) }
+            )
         }
         else -> {
             // Loading, Error

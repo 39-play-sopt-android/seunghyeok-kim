@@ -52,7 +52,7 @@ class AuthViewModel(
 
     fun login(email: String, pw: String) {
         viewModelScope.launch {
-            when (val result = authRepository.login(email, pw)) {
+            when (authRepository.login(email, pw)) {
                 is LoginResult.Success -> {
                     _uiState.value = AuthUiState.Success
                     _event.emit(AuthEvent.NavToHome)
