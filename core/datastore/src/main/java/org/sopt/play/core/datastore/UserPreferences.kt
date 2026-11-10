@@ -4,8 +4,10 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.stringPreferencesKey
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -25,7 +27,15 @@ class UserPreferences(
     }
 
     // 유저 목록 JSON 문자열을 관찰하여 List<UserEntity> 객체로 변환하여 방출하는 Flow
-    val usersFlow: Flow<List<UserEntity>> = dataStore.data.map { preferences ->
+    val usersFlow: Flow<List<UserEntity>> = dataStore.data
+        .catch { exception ->
+            if(exception is Exception) {
+                emit(emptyPreferences())
+            } else {
+                throw exception
+            }
+        }
+        .map { preferences ->
         val jsonString = preferences[USERS_JSON]
         if (jsonString.isNullOrBlank()) {
             emptyList()
@@ -40,7 +50,7 @@ class UserPreferences(
 
     // 새로운 유저 정보를 DataStore에 저장하는 비동기 함수
     suspend fun saveUser(name: String, email: String, pw: String): UserEntity {
-        var newUser = UserEntity(1, name, email, pw)
+        var newUser: UserEntity? = null
         dataStore.edit { preferences ->
             val jsonString = preferences[USERS_JSON]
             val currentUsers = if (jsonString.isNullOrBlank()) {
@@ -54,11 +64,12 @@ class UserPreferences(
             }
             // 기존 유저 목록에서 가장 큰 ID 값을 찾아 1을 더해 새로운 고유 ID 생성
             val newId = (currentUsers.maxOfOrNull { it.id } ?: 0) + 1
-            newUser = UserEntity(newId, name, email, pw)
-            val updatedUsers = currentUsers + newUser
+            val createdUser = UserEntity(newId, name, email, pw)
+            val updatedUsers = currentUsers + createdUser
             preferences[USERS_JSON] = Json.encodeToString(updatedUsers)
+            newUser = createdUser
         }
-        return newUser
+        return requireNotNull(newUser)
     }
 
     // 사용자의 로그인 상태(true/false)를 DataStore에 갱신하는 비동기 함수
