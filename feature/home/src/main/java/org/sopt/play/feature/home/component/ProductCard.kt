@@ -22,8 +22,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.play.core.designsystem.R
 import org.sopt.play.core.ui.ext.nullIndication
-import org.sopt.play.designsystem.theme.PlaySoptPreviewTheme
-import org.sopt.play.designsystem.theme.PlaySoptTheme
+import org.sopt.play.core.designsystem.theme.PlaySoptPreviewTheme
+import org.sopt.play.core.designsystem.theme.PlaySoptTheme
 import org.sopt.play.feature.home.model.Product
 import org.sopt.play.feature.home.model.ProductDummies
 import org.sopt.play.feature.home.ui.calculateDiscountRate

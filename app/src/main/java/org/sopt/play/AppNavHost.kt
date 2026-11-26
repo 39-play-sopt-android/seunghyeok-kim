@@ -9,8 +9,8 @@ import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
 import org.sopt.play.core.navigation.MainTab
 import org.sopt.play.core.navigation.Route
-import org.sopt.play.designsystem.component.PlaySoptNavigationBar
-import org.sopt.play.designsystem.theme.PlaySoptTheme
+import org.sopt.play.core.designsystem.component.PlaySoptNavigationBar
+import org.sopt.play.core.designsystem.theme.PlaySoptTheme
 import org.sopt.play.feature.auth.AuthRoute
 import org.sopt.play.feature.home.HomeRoute
 import org.sopt.play.feature.like.LikeRoute

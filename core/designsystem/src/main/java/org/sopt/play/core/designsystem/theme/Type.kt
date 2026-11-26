@@ -1,4 +1,4 @@
-package org.sopt.play.designsystem.theme
+package org.sopt.play.core.designsystem.theme
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable

@@ -1,4 +1,4 @@
-package org.sopt.play.designsystem.component
+package org.sopt.play.core.designsystem.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -12,8 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.play.core.designsystem.R
-import org.sopt.play.designsystem.theme.PlaySoptPreviewTheme
-import org.sopt.play.designsystem.theme.PlaySoptTheme
+import org.sopt.play.core.designsystem.theme.PlaySoptPreviewTheme
+import org.sopt.play.core.designsystem.theme.PlaySoptTheme
 
 @Composable
 fun PlaySoptTopBar(

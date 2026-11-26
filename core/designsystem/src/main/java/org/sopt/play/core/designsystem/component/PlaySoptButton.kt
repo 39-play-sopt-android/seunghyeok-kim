@@ -1,4 +1,4 @@
-package org.sopt.play.designsystem.component
+package org.sopt.play.core.designsystem.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -14,7 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import org.sopt.play.core.ui.ext.nullIndication
-import org.sopt.play.designsystem.theme.PlaySoptTheme
+import org.sopt.play.core.designsystem.theme.PlaySoptTheme
 
 @Composable
 fun PlaySoptButton(

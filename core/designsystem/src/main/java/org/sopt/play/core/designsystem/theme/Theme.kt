@@ -1,7 +1,6 @@
-package org.sopt.play.designsystem.theme
+package org.sopt.play.core.designsystem.theme
 
 import android.app.Activity
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row

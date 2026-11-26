@@ -1,4 +1,4 @@
-package org.sopt.play.designsystem.component
+package org.sopt.play.core.designsystem.component
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.size

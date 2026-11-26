@@ -8,8 +8,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import org.sopt.play.designsystem.theme.PlaySoptPreviewTheme
-import org.sopt.play.designsystem.theme.PlaySoptTheme
+import org.sopt.play.core.designsystem.theme.PlaySoptPreviewTheme
+import org.sopt.play.core.designsystem.theme.PlaySoptTheme
 
 @Composable
 fun Menus(

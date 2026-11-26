@@ -22,8 +22,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 import org.sopt.play.core.ui.ext.playSoptDefault
-import org.sopt.play.designsystem.component.PlaySoptTopBar
-import org.sopt.play.designsystem.theme.PlaySoptTheme
+import org.sopt.play.core.designsystem.component.PlaySoptTopBar
+import org.sopt.play.core.designsystem.theme.PlaySoptTheme
 import org.sopt.play.feature.home.component.Banners
 import org.sopt.play.feature.home.component.Categories
 import org.sopt.play.feature.home.component.Menus
