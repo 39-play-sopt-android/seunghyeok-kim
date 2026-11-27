@@ -7,14 +7,15 @@ import androidx.compose.ui.Modifier
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
-import org.sopt.play.core.navigation.MainTab
-import org.sopt.play.core.navigation.Route
 import org.sopt.play.core.designsystem.component.PlaySoptNavigationBar
 import org.sopt.play.core.designsystem.theme.PlaySoptTheme
+import org.sopt.play.core.navigation.MainTab
+import org.sopt.play.core.navigation.Route
 import org.sopt.play.feature.auth.AuthRoute
 import org.sopt.play.feature.home.HomeRoute
 import org.sopt.play.feature.like.LikeRoute
 import org.sopt.play.feature.mypage.MypageRoute
+import org.sopt.play.feature.search.SearchRoute
 
 @Composable
 fun AppNavHost(
@@ -63,13 +64,22 @@ fun AppNavHost(
                     )
                 }
                 entry<Route.Home> {
-                    HomeRoute()
+                    HomeRoute(
+                        onSearchClick = {
+                            backStack.add(Route.Search)
+                        }
+                    )
                 }
                 entry<Route.Like> {
                     LikeRoute()
                 }
                 entry<Route.Mypage> {
                     MypageRoute()
+                }
+                entry<Route.Search> {
+                    SearchRoute(
+                        onBackClick = ::popBackStack
+                    )
                 }
             }
         )

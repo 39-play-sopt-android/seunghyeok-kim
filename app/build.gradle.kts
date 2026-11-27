@@ -30,6 +30,7 @@ dependencies {
     implementation(project(":feature:home"))
     implementation(project(":feature:like"))
     implementation(project(":feature:mypage"))
+    implementation(project(":feature:search"))
 
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.navigation.compose)
