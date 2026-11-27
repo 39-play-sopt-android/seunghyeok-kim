@@ -77,9 +77,7 @@ fun AppNavHost(
                     MypageRoute()
                 }
                 entry<Route.Search> {
-                    SearchRoute(
-                        onBackClick = ::popBackStack
-                    )
+                    SearchRoute()
                 }
             }
         )
