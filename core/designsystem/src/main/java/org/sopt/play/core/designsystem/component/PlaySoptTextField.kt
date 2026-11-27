@@ -73,8 +73,8 @@ fun PlaySoptTextField(
 
     val currentStatus: TextFieldStatus = when {
         status is TextFieldStatus.Error -> status
-        isFocused -> TextFieldStatus.Focused
         status != null -> status
+        isFocused -> TextFieldStatus.Focused
         isNotEmpty -> TextFieldStatus.Valid
         else -> TextFieldStatus.Default
     }
@@ -221,12 +221,6 @@ private fun PlaySoptTextFieldPreview(){
                 title = "제목",
                 state = TextFieldState(),
                 hint = "힌트",
-                onDone = {}
-            )
-            PlaySoptTextField(
-                title = "제목",
-                state = TextFieldState(),
-                hint = "힌트",
                 status = TextFieldStatus.Valid,
                 onDone = {}
             )
@@ -245,13 +239,6 @@ private fun PlaySoptTextFieldPreview(){
                 onDone = {}
             )
 
-            PlaySoptTextField(
-                title = "",
-                state = TextFieldState(),
-                hint = "검색어를 입력하세요",
-                onDone = {},
-                onSearchable = {}
-            )
             PlaySoptTextField(
                 title = "",
                 state = TextFieldState(),
