@@ -1,6 +1,9 @@
 package org.sopt.play.core.designsystem.component
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
@@ -26,7 +29,14 @@ fun PlaySoptBottomSheet(
         sheetState = sheetState,
         shape = shape,
         containerColor = PlaySoptTheme.color.white,
-        modifier = modifier,
-        content = content
-    )
+        modifier = modifier
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 16.dp, end = 16.dp, top = 0.dp, bottom = 24.dp)
+        ) {
+            content()
+        }
+    }
 }
