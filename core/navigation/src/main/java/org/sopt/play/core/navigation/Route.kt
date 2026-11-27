@@ -9,4 +9,5 @@ sealed interface Route : NavKey {
     @Serializable data object Home : Route
     @Serializable data object Like : Route
     @Serializable data object Mypage : Route
+    @Serializable data object Search : Route
 }

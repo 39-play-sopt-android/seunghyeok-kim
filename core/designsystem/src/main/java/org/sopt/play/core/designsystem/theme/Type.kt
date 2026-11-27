@@ -21,10 +21,12 @@ val Pretendard: FontFamily = FontFamily(
 data class PlaySoptTypography(
     val b28: TextStyle,
     val m18: TextStyle,
+    val m16: TextStyle,
     val sb16: TextStyle,
     val m14: TextStyle,
     val sb14: TextStyle,
-    val r14: TextStyle
+    val r14: TextStyle,
+    val m12: TextStyle
 )
 
 val playSoptTypography: PlaySoptTypography
@@ -39,9 +41,11 @@ val playSoptTypography: PlaySoptTypography
         return PlaySoptTypography(
             b28 = baseStyle.copy(fontSize = 28.sp, fontWeight = FontWeight.Bold),
             m18 = baseStyle.copy(fontSize = 18.sp, fontWeight = FontWeight.Medium),
+            m16 = baseStyle.copy(fontSize = 16.sp, fontWeight = FontWeight.Medium),
             sb16 = baseStyle.copy(fontSize = 16.sp, fontWeight = FontWeight.SemiBold),
             m14 = baseStyle.copy(fontSize = 14.sp, fontWeight = FontWeight.Medium),
             sb14 = baseStyle.copy(fontSize = 14.sp, fontWeight = FontWeight.SemiBold),
-            r14 = baseStyle.copy(fontSize = 14.sp, fontWeight = FontWeight.Normal)
+            r14 = baseStyle.copy(fontSize = 14.sp, fontWeight = FontWeight.Normal),
+            m12 = baseStyle.copy(fontSize = 12.sp, fontWeight = FontWeight.Medium)
         )
     }

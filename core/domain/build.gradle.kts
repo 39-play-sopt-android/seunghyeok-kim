@@ -8,6 +8,7 @@ setNamespace("core.domain")
 
 dependencies {
     implementation(project(":core:datastore"))
+    implementation(project(":core:network"))
     implementation(libs.coroutines.core)
     implementation(libs.coroutines.android)
     implementation(libs.koin.core)

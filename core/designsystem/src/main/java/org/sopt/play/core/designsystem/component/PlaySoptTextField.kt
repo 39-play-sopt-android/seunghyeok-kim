@@ -17,12 +17,14 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.input.OutputTransformation
 import androidx.compose.foundation.text.input.TextFieldLineLimits
 import androidx.compose.foundation.text.input.TextFieldState
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -33,8 +35,11 @@ import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import org.sopt.play.core.designsystem.R
 import org.sopt.play.core.designsystem.theme.PlaySoptTheme
 
 sealed class TextFieldStatus {
@@ -56,7 +61,8 @@ fun PlaySoptTextField(
     onNext: (() -> Unit)? = null,
     imeAction: ImeAction? = null,
     type: String? = null,
-    maxLine: Int = 1
+    maxLine: Int = 1,
+    onSearchable: (() -> Unit)? = null
 ) {
     val isNotEmpty = state.text.isNotEmpty()
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -67,8 +73,8 @@ fun PlaySoptTextField(
 
     val currentStatus: TextFieldStatus = when {
         status is TextFieldStatus.Error -> status
-        isFocused -> TextFieldStatus.Focused
         status != null -> status
+        isFocused -> TextFieldStatus.Focused
         isNotEmpty -> TextFieldStatus.Valid
         else -> TextFieldStatus.Default
     }
@@ -90,7 +96,7 @@ fun PlaySoptTextField(
         modifier = modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(6.dp)
     ) {
-        if (!title.isNullOrEmpty()) {
+        if (title.isNotEmpty()) {
             Text(
                 modifier = Modifier.padding(start = 8.dp),
                 text = title,
@@ -157,6 +163,14 @@ fun PlaySoptTextField(
                         }
                         innerTextField()
                     }
+                    onSearchable?.let {
+                        Icon(
+                            modifier = Modifier.size(24.dp),
+                            painter = painterResource(id = R.drawable.ic_search),
+                            contentDescription = "search",
+                            tint = PlaySoptTheme.color.gray3
+                        )
+                    }
                 }
             }
         )
@@ -190,6 +204,47 @@ fun PlaySoptTextField(
                 text = errorMessage ?: "오류가 있습니다",
                 style = PlaySoptTheme.typography.m14,
                 color = PlaySoptTheme.color.red
+            )
+        }
+    }
+}
+
+@Preview
+@Composable
+private fun PlaySoptTextFieldPreview(){
+    PlaySoptTheme {
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            PlaySoptTextField(
+                title = "제목",
+                state = TextFieldState(),
+                hint = "힌트",
+                status = TextFieldStatus.Valid,
+                onDone = {}
+            )
+            PlaySoptTextField(
+                title = "제목",
+                state = TextFieldState(),
+                hint = "힌트",
+                status = TextFieldStatus.Focused,
+                onDone = {}
+            )
+            PlaySoptTextField(
+                title = "제목",
+                state = TextFieldState(),
+                hint = "힌트",
+                status = TextFieldStatus.Error("오류 메시지"),
+                onDone = {}
+            )
+
+            PlaySoptTextField(
+                title = "",
+                state = TextFieldState(),
+                hint = "검색어를 입력하세요",
+                onDone = {},
+                onSearchable = {}
             )
         }
     }

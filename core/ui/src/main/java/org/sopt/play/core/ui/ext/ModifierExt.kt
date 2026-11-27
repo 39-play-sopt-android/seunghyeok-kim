@@ -1,7 +1,9 @@
 package org.sopt.play.core.ui.ext
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
@@ -14,7 +16,10 @@ import androidx.compose.foundation.layout.tappableElement
 import androidx.compose.foundation.layout.union
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 
@@ -60,4 +65,48 @@ fun Modifier.nullIndication(
     enabled = enabled
 ) {
     onClick()
+}
+
+@Composable
+fun Modifier.singleClickable(
+    enabled: Boolean = true,
+    delayMillis: Long = 600L,
+    onClick: () -> Unit
+): Modifier {
+    var lastClickTime by remember { mutableLongStateOf(0L) }
+    return this.clickable(
+        interactionSource = remember { MutableInteractionSource() },
+        indication = null,
+        enabled = enabled
+    ) {
+        val currentTime = System.currentTimeMillis()
+        if (currentTime - lastClickTime >= delayMillis) {
+            lastClickTime = currentTime
+            onClick()
+        }
+    }
+}
+
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+fun Modifier.singleCombinedClickable(
+    enabled: Boolean = true,
+    delayMillis: Long = 600L,
+    onLongClick: (() -> Unit)? = null,
+    onClick: () -> Unit = {}
+): Modifier {
+    var lastClickTime by remember { mutableLongStateOf(0L) }
+    return this.combinedClickable(
+        interactionSource = remember { MutableInteractionSource() },
+        indication = null,
+        enabled = enabled,
+        onLongClick = onLongClick,
+        onClick = {
+            val currentTime = System.currentTimeMillis()
+            if (currentTime - lastClickTime >= delayMillis) {
+                lastClickTime = currentTime
+                onClick()
+            }
+        }
+    )
 }
